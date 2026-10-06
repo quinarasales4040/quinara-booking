@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quinara - Tempahan</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f7f9;
+  color:#222;
+}
+
+.header{
+  background:#17324d;
+  color:white;
+  padding:25px 20px;
+  text-align:center;
+}
+
+.header h1{
+  margin:0;
+}
+
+.header p{
+  margin:8px 0 0;
+}
+
+.container{
+  max-width:650px;
+  margin:30px auto;
+  padding:0 15px;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+h2{
+  color:#17324d;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin-top:18px;
+  margin-bottom:7px;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:15px;
+}
+
+textarea{
+  min-height:90px;
+}
+
+button{
+  width:100%;
+  margin-top:25px;
+  padding:14px;
+  border:0;
+  border-radius:8px;
+  background:#17324d;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+}
+
+button:disabled{
+  opacity:.6;
+}
+
+.success{
+  display:none;
+  margin-top:20px;
+  padding:15px;
+  border-radius:8px;
+  background:#e8f7ed;
+  color:#176b35;
+  line-height:1.6;
+}
+
+.booking-id{
+  font-weight:bold;
+  font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>QUINARA</h1>
+  <p>Tempahan Dewan & Event</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Tempahan Dewan</h2>
+
+<form id="bookingForm">
+
+<label>Nama Customer *</label>
+<input id="customerName" required placeholder="Masukkan nama">
+
+<label>No. Telefon *</label>
+<input id="phone" type="tel" required placeholder="0123456789">
+
+<label>Email</label>
+<input id="email" type="email" placeholder="nama@email.com">
+
+<label>Pilih Dewan *</label>
+
+<select id="hall" required>
+<option value="">-- Pilih Dewan --</option>
+<option>Arafah Hall</option>
+<option>Ar-Rayyan</option>
+<option>Glass Hall</option>
+<option>As-Safar</option>
+<option>Al-Marwah</option>
+</select>
+
+<label>Tarikh Majlis *</label>
+<input id="eventDate" type="date" required>
+
+<label>Masa Majlis *</label>
+<input id="eventTime" type="time" required>
+
+<label>Jenis Majlis *</label>
+
+<select id="eventType" required>
+<option value="">-- Pilih Jenis Majlis --</option>
+<option>Wedding</option>
+<option>Nikah</option>
+<option>Dinner</option>
+<option>Corporate Event</option>
+<option>Seminar</option>
+<option>Meeting</option>
+<option>Kem / Program</option>
+<option>Birthday</option>
+<option>Other</option>
+</select>
+
+<label>Jumlah Pax</label>
+<input id="pax" type="number" min="1" placeholder="Contoh: 500">
+
+<label>Catatan / Permintaan</label>
+<textarea id="notes" placeholder="Masukkan sebarang permintaan"></textarea>
+
+<button id="submitBtn" type="submit">
+HANTAR TEMPAHAN
+</button>
+
+</form>
+
+<div class="success" id="successMessage">
+
+Tempahan berjaya dihantar! 🎉
+
+<br>
+
+ID Tempahan:
+<span class="booking-id" id="bookingId"></span>
+
+<br>
+
+Pihak Quinara akan menghubungi anda untuk pengesahan tempahan.
+
+</div>
+
+</div>
+</div>
+
+<script>
+
+document
+.getElementById("bookingForm")
+.addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const btn =
+document.getElementById("submitBtn");
+
+btn.disabled = true;
+btn.textContent = "SEDANG HANTAR...";
+
+const booking = {
+
+customerName:
+document.getElementById("customerName").value,
+
+phone:
+document.getElementById("phone").value,
+
+email:
+document.getElementById("email").value,
+
+hall:
+document.getElementById("hall").value,
+
+eventDate:
+document.getElementById("eventDate").value,
+
+eventTime:
+document.getElementById("eventTime").value,
+
+eventType:
+document.getElementById("eventType").value,
+
+pax:
+document.getElementById("pax").value,
+
+notes:
+document.getElementById("notes").value
+
+};
+
+try{
+
+const response =
+await fetch("/api/bookings",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(booking)
+
+});
+
+const result =
+await response.json();
+
+if(!result.success){
+
+alert(result.message);
+
+btn.disabled=false;
+btn.textContent="HANTAR TEMPAHAN";
+
+return;
+
+}
+
+document
+.getElementById("bookingId")
+.textContent=result.booking.id;
+
+document
+.getElementById("successMessage")
+.style.display="block";
+
+document
+.getElementById("bookingForm")
+.reset();
+
+btn.disabled=false;
+btn.textContent="HANTAR TEMPAHAN";
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+}catch(error){
+
+alert("Server tidak dapat dihubungi.");
+
+btn.disabled=false;
+btn.textContent="HANTAR TEMPAHAN";
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
