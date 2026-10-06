@@ -1,9 +1,19 @@
 const express = require("express");
 const path = require("path");
-const fs = require("fs");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+// ================================
+// SUPABASE
+// ================================
+
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
+
+// ================================
+// DEWAN
+// ================================
 
 const HALLS = [
   "Arafah Hall",
@@ -12,8 +22,6 @@ const HALLS = [
   "As-Safar",
   "Al-Marwah"
 ];
-
-const DATA_FILE = path.join(__dirname, "bookings.json");
 
 // ================================
 // LOGIN ADMIN
@@ -26,19 +34,117 @@ const ADMIN_PASSWORD = "quinara4040";
 // SETUP
 // ================================
 
-if (!fs.existsSync(DATA_FILE)) {
-  fs.writeFileSync(DATA_FILE, "[]");
-}
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// ================================
+// SUPABASE REQUEST
+// ================================
+
+async function supabaseRequest(endpoint, options = {}) {
+
+  if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
+    throw new Error("Supabase environment variables belum diset.");
+  }
+
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/${endpoint}`,
+    {
+      ...options,
+
+      headers: {
+        "apikey": SUPABASE_SECRET_KEY,
+        "Authorization": `Bearer ${SUPABASE_SECRET_KEY}`,
+        "Content-Type": "application/json",
+        "Prefer": options.method === "POST"
+          ? "return=representation"
+          : "return=representation",
+        ...(options.headers || {})
+      }
+    }
+  );
+
+  const text = await response.text();
+
+  let data = [];
+
+  try {
+    data = text ? JSON.parse(text) : [];
+  } catch {
+    data = text;
+  }
+
+  if (!response.ok) {
+
+    console.error("SUPABASE ERROR:", data);
+
+    throw new Error(
+      typeof data === "string"
+        ? data
+        : JSON.stringify(data)
+    );
+  }
+
+  return data;
+}
+
+// ================================
+// CONVERT DATABASE → APP
+// ================================
+
+function formatBooking(row) {
+
+  return {
+
+    id: row.id,
+
+    customerName:
+      row.customer_name || "",
+
+    phone:
+      row.phone || "",
+
+    email:
+      row.email || "",
+
+    hall:
+      row.hall || "",
+
+    eventDate:
+      row.event_date || "",
+
+    eventTime:
+      row.event_time || "",
+
+    eventType:
+      row.event_type || "",
+
+    pax:
+      row.pax || "",
+
+    notes:
+      row.notes || "",
+
+    status:
+      row.status || "Pending",
+
+    createdAt:
+      row.created_at || ""
+
+  };
+
+}
 
 // ================================
 // CUSTOMER
 // ================================
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "customer.html"));
+
+  res.sendFile(
+    path.join(__dirname, "customer.html")
+  );
+
 });
 
 // ================================
@@ -46,12 +152,17 @@ app.get("/", (req, res) => {
 // ================================
 
 app.get("/admin", (req, res) => {
+
   res.send(`
 <!DOCTYPE html>
 <html lang="ms">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Quinara Admin Login</title>
 
@@ -138,6 +249,7 @@ button:hover{
 }
 
 </style>
+
 </head>
 
 <body>
@@ -246,8 +358,10 @@ alert("Server tidak dapat dihubungi.");
 </script>
 
 </body>
+
 </html>
   `);
+
 });
 
 // ================================
@@ -273,8 +387,12 @@ app.post("/api/login", (req, res) => {
   }
 
   res.status(401).json({
+
     success: false,
-    message: "Username atau password salah."
+
+    message:
+      "Username atau password salah."
+
   });
 
 });
@@ -284,7 +402,11 @@ app.post("/api/login", (req, res) => {
 // ================================
 
 app.get("/admin-dashboard", (req, res) => {
-  res.sendFile(path.join(__dirname, "admin.html"));
+
+  res.sendFile(
+    path.join(__dirname, "admin.html")
+  );
+
 });
 
 // ================================
@@ -294,8 +416,12 @@ app.get("/admin-dashboard", (req, res) => {
 app.get("/api/status", (req, res) => {
 
   res.json({
+
     success: true,
-    message: "Quinara Booking Server is running"
+
+    message:
+      "Quinara Booking Server is running"
+
   });
 
 });
@@ -307,8 +433,11 @@ app.get("/api/status", (req, res) => {
 app.get("/api/halls", (req, res) => {
 
   res.json({
+
     success: true,
+
     halls: HALLS
+
   });
 
 });
@@ -317,25 +446,37 @@ app.get("/api/halls", (req, res) => {
 // DAPATKAN SEMUA TEMPAHAN
 // ================================
 
-app.get("/api/bookings", (req, res) => {
+app.get("/api/bookings", async (req, res) => {
 
   try {
 
-    const bookings =
-      JSON.parse(
-        fs.readFileSync(DATA_FILE, "utf8")
+    const rows =
+      await supabaseRequest(
+        "bookings?select=*&order=created_at.desc"
       );
 
+    const bookings =
+      rows.map(formatBooking);
+
     res.json({
+
       success: true,
+
       bookings
+
     });
 
   } catch (error) {
 
+    console.error(error);
+
     res.status(500).json({
+
       success: false,
-      message: "Gagal membaca data tempahan."
+
+      message:
+        "Gagal membaca data tempahan."
+
     });
 
   }
@@ -346,7 +487,7 @@ app.get("/api/bookings", (req, res) => {
 // BUAT TEMPAHAN
 // ================================
 
-app.post("/api/bookings", (req, res) => {
+app.post("/api/bookings", async (req, res) => {
 
   try {
 
@@ -362,6 +503,10 @@ app.post("/api/bookings", (req, res) => {
       notes
     } = req.body;
 
+    // ============================
+    // VALIDASI
+    // ============================
+
     if (
       !customerName ||
       !phone ||
@@ -372,9 +517,12 @@ app.post("/api/bookings", (req, res) => {
     ) {
 
       return res.status(400).json({
+
         success: false,
+
         message:
           "Sila lengkapkan semua maklumat wajib."
+
       });
 
     }
@@ -382,79 +530,117 @@ app.post("/api/bookings", (req, res) => {
     if (!HALLS.includes(hall)) {
 
       return res.status(400).json({
+
         success: false,
-        message: "Dewan tidak sah."
+
+        message:
+          "Dewan tidak sah."
+
       });
 
     }
 
-    const bookings =
-      JSON.parse(
-        fs.readFileSync(DATA_FILE, "utf8")
+    // ============================
+    // CHECK DEWAN + TARIKH
+    // ============================
+
+    const conflictRows =
+      await supabaseRequest(
+        `bookings?select=id,status&hall=eq.${encodeURIComponent(hall)}&event_date=eq.${encodeURIComponent(eventDate)}&status=neq.Cancelled`
       );
 
-    const conflict =
-      bookings.find(booking =>
-        booking.hall === hall &&
-        booking.eventDate === eventDate &&
-        booking.status !== "Cancelled"
-      );
-
-    if (conflict) {
+    if (
+      conflictRows &&
+      conflictRows.length > 0
+    ) {
 
       return res.status(409).json({
+
         success: false,
+
         message:
           "Maaf, dewan tersebut sudah mempunyai tempahan pada tarikh ini."
+
       });
 
     }
+
+    // ============================
+    // BOOKING ID
+    // ============================
 
     const bookingId =
       "QNR-" +
       Date.now().toString().slice(-8);
 
+    // ============================
+    // DATA
+    // ============================
+
     const newBooking = {
 
       id: bookingId,
 
-      customerName:
+      customer_name:
         customerName.trim(),
 
       phone:
         phone.trim(),
 
       email:
-        email ? email.trim() : "",
+        email
+          ? email.trim()
+          : "",
 
       hall,
 
-      eventDate,
+      event_date:
+        eventDate,
 
-      eventTime,
+      event_time:
+        eventTime,
 
-      eventType,
+      event_type:
+        eventType,
 
       pax:
-        pax || "",
+        pax
+          ? parseInt(pax)
+          : null,
 
       notes:
-        notes ? notes.trim() : "",
+        notes
+          ? notes.trim()
+          : "",
 
       status:
-        "Pending",
-
-      createdAt:
-        new Date().toISOString()
+        "Pending"
 
     };
 
-    bookings.push(newBooking);
+    // ============================
+    // SIMPAN SUPABASE
+    // ============================
 
-    fs.writeFileSync(
-      DATA_FILE,
-      JSON.stringify(bookings, null, 2)
-    );
+    const insertedRows =
+      await supabaseRequest(
+        "bookings",
+        {
+          method:"POST",
+
+          body:
+            JSON.stringify(newBooking)
+        }
+      );
+
+    const savedBooking =
+      formatBooking(
+        insertedRows[0]
+      );
+
+    // ============================
+    // RESPONSE
+    // ============================
 
     res.json({
 
@@ -464,7 +650,7 @@ app.post("/api/bookings", (req, res) => {
         "Tempahan berjaya dihantar.",
 
       booking:
-        newBooking
+        savedBooking
 
     });
 
@@ -489,139 +675,153 @@ app.post("/api/bookings", (req, res) => {
 // CONFIRM TEMPAHAN
 // ================================
 
-app.put("/api/bookings/:id/confirm", (req, res) => {
+app.put(
+  "/api/bookings/:id/confirm",
+  async (req, res) => {
 
-  try {
+    try {
 
-    const bookings =
-      JSON.parse(
-        fs.readFileSync(DATA_FILE, "utf8")
-      );
+      const rows =
+        await supabaseRequest(
+          `bookings?id=eq.${encodeURIComponent(req.params.id)}&select=*`
+        );
 
-    const index =
-      bookings.findIndex(
-        booking =>
-          booking.id === req.params.id
-      );
+      if (
+        !rows ||
+        rows.length === 0
+      ) {
 
-    if (index === -1) {
+        return res.status(404).json({
 
-      return res.status(404).json({
+          success: false,
+
+          message:
+            "Tempahan tidak dijumpai."
+
+        });
+
+      }
+
+      const updatedRows =
+        await supabaseRequest(
+          `bookings?id=eq.${encodeURIComponent(req.params.id)}`,
+          {
+            method:"PATCH",
+
+            body:
+              JSON.stringify({
+                status:"Confirmed"
+              })
+          }
+        );
+
+      res.json({
+
+        success: true,
+
+        message:
+          "Tempahan telah disahkan.",
+
+        booking:
+          formatBooking(
+            updatedRows[0]
+          )
+
+      });
+
+    } catch (error) {
+
+      console.error(error);
+
+      res.status(500).json({
 
         success: false,
 
         message:
-          "Tempahan tidak dijumpai."
+          "Gagal confirm tempahan."
 
       });
 
     }
 
-    bookings[index].status =
-      "Confirmed";
-
-    fs.writeFileSync(
-      DATA_FILE,
-      JSON.stringify(bookings, null, 2)
-    );
-
-    res.json({
-
-      success: true,
-
-      message:
-        "Tempahan telah disahkan.",
-
-      booking:
-        bookings[index]
-
-    });
-
-  } catch (error) {
-
-    console.error(error);
-
-    res.status(500).json({
-
-      success: false,
-
-      message:
-        "Gagal confirm tempahan."
-
-    });
-
   }
-
-});
+);
 
 // ================================
 // CANCEL TEMPAHAN
 // ================================
 
-app.put("/api/bookings/:id/cancel", (req, res) => {
+app.put(
+  "/api/bookings/:id/cancel",
+  async (req, res) => {
 
-  try {
+    try {
 
-    const bookings =
-      JSON.parse(
-        fs.readFileSync(DATA_FILE, "utf8")
-      );
+      const rows =
+        await supabaseRequest(
+          `bookings?id=eq.${encodeURIComponent(req.params.id)}&select=*`
+        );
 
-    const index =
-      bookings.findIndex(
-        booking =>
-          booking.id === req.params.id
-      );
+      if (
+        !rows ||
+        rows.length === 0
+      ) {
 
-    if (index === -1) {
+        return res.status(404).json({
 
-      return res.status(404).json({
+          success: false,
+
+          message:
+            "Tempahan tidak dijumpai."
+
+        });
+
+      }
+
+      const updatedRows =
+        await supabaseRequest(
+          `bookings?id=eq.${encodeURIComponent(req.params.id)}`,
+          {
+            method:"PATCH",
+
+            body:
+              JSON.stringify({
+                status:"Cancelled"
+              })
+          }
+        );
+
+      res.json({
+
+        success: true,
+
+        message:
+          "Tempahan telah dibatalkan.",
+
+        booking:
+          formatBooking(
+            updatedRows[0]
+          )
+
+      });
+
+    } catch (error) {
+
+      console.error(error);
+
+      res.status(500).json({
 
         success: false,
 
         message:
-          "Tempahan tidak dijumpai."
+          "Gagal membatalkan tempahan."
 
       });
 
     }
 
-    bookings[index].status =
-      "Cancelled";
-
-    fs.writeFileSync(
-      DATA_FILE,
-      JSON.stringify(bookings, null, 2)
-    );
-
-    res.json({
-
-      success: true,
-
-      message:
-        "Tempahan telah dibatalkan.",
-
-      booking:
-        bookings[index]
-
-    });
-
-  } catch (error) {
-
-    console.error(error);
-
-    res.status(500).json({
-
-      success: false,
-
-      message:
-        "Gagal membatalkan tempahan."
-
-    });
-
   }
-
-});
+);
 
 // ================================
 // START SERVER
@@ -631,19 +831,29 @@ app.listen(PORT, () => {
 
   console.log("");
 
-  console.log("-----------------------------------");
+  console.log(
+    "-----------------------------------"
+  );
 
   console.log(
     "      QUINARA BOOKING SYSTEM"
   );
 
-  console.log("-----------------------------------");
-
   console.log(
-    `Server running at http://localhost:${PORT}`
+    "-----------------------------------"
   );
 
-  console.log("-----------------------------------");
+  console.log(
+    `Server running on port ${PORT}`
+  );
+
+  console.log(
+    "Supabase database enabled"
+  );
+
+  console.log(
+    "-----------------------------------"
+  );
 
   console.log("");
 
