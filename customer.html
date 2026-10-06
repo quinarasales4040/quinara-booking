@@ -1,294 +1,1163 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quinara - Tempahan</title>
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Quinara - Tempahan Dewan</title>
 
 <style>
-*{box-sizing:border-box}
+
+/* ================================
+   RESET
+================================ */
+
+*{
+  box-sizing:border-box;
+}
+
+/* ================================
+   BODY
+================================ */
 
 body{
   margin:0;
-  font-family:Arial,sans-serif;
-  background:#f5f7f9;
-  color:#222;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background:
+    linear-gradient(
+      180deg,
+      #eef2f5 0%,
+      #f8f9fa 100%
+    );
+
+  color:#26313c;
 }
+
+/* ================================
+   HEADER
+================================ */
 
 .header{
-  background:#17324d;
+  background:
+    linear-gradient(
+      135deg,
+      #102b45,
+      #1c496d
+    );
+
   color:white;
-  padding:25px 20px;
+
+  padding:
+    38px
+    20px
+    42px;
+
   text-align:center;
+
+  position:relative;
+
+  overflow:hidden;
 }
 
-.header h1{
+.header::before{
+  content:"";
+  position:absolute;
+
+  width:220px;
+  height:220px;
+
+  border:1px solid rgba(255,255,255,.10);
+
+  border-radius:50%;
+
+  top:-110px;
+  left:-70px;
+}
+
+.header::after{
+  content:"";
+  position:absolute;
+
+  width:260px;
+  height:260px;
+
+  border:1px solid rgba(255,255,255,.08);
+
+  border-radius:50%;
+
+  bottom:-170px;
+  right:-80px;
+}
+
+.logo{
+  position:relative;
+  z-index:2;
+
+  font-size:34px;
+  font-weight:800;
+
+  letter-spacing:4px;
+
   margin:0;
 }
 
-.header p{
-  margin:8px 0 0;
+.logo-line{
+  width:55px;
+  height:2px;
+
+  background:#d8b56a;
+
+  margin:12px auto;
 }
 
-.container{
-  max-width:650px;
-  margin:30px auto;
-  padding:0 15px;
+.header p{
+  position:relative;
+  z-index:2;
+
+  margin:0;
+
+  font-size:15px;
+
+  color:#e7edf2;
+
+  letter-spacing:.5px;
 }
+
+/* ================================
+   CONTAINER
+================================ */
+
+.container{
+  max-width:680px;
+
+  margin:
+    -22px
+    auto
+    40px;
+
+  padding:
+    0
+    16px;
+
+  position:relative;
+
+  z-index:5;
+}
+
+/* ================================
+   CARD
+================================ */
 
 .card{
   background:white;
-  padding:25px;
-  border-radius:16px;
-  box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+  padding:
+    28px
+    26px
+    30px;
+
+  border-radius:20px;
+
+  box-shadow:
+    0 10px 35px rgba(20,45,65,.10);
+
+  border:
+    1px solid #edf0f2;
 }
 
-h2{
-  color:#17324d;
+/* ================================
+   TITLE
+================================ */
+
+.form-header{
+  text-align:center;
+
+  margin-bottom:25px;
 }
+
+.form-header h2{
+  margin:0;
+
+  color:#17324d;
+
+  font-size:24px;
+}
+
+.form-header p{
+  margin:
+    8px
+    0
+    0;
+
+  color:#7b8791;
+
+  font-size:14px;
+
+  line-height:1.5;
+}
+
+/* ================================
+   SECTION
+================================ */
+
+.section-title{
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin:
+    26px
+    0
+    8px;
+
+  color:#17324d;
+
+  font-size:14px;
+
+  font-weight:700;
+
+  text-transform:uppercase;
+
+  letter-spacing:.7px;
+}
+
+.section-title:first-of-type{
+  margin-top:0;
+}
+
+.section-number{
+  width:26px;
+  height:26px;
+
+  border-radius:50%;
+
+  background:#17324d;
+
+  color:white;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  font-size:12px;
+}
+
+/* ================================
+   LABEL
+================================ */
 
 label{
   display:block;
-  font-weight:bold;
-  margin-top:18px;
-  margin-bottom:7px;
+
+  font-weight:600;
+
+  margin:
+    17px
+    0
+    7px;
+
+  font-size:14px;
+
+  color:#35414c;
 }
 
-input,select,textarea{
+.required{
+  color:#c89538;
+}
+
+/* ================================
+   INPUT
+================================ */
+
+input,
+select,
+textarea{
+
   width:100%;
-  padding:13px;
-  border:1px solid #ddd;
-  border-radius:8px;
+
+  padding:
+    13px
+    14px;
+
+  border:
+    1px solid #dfe4e8;
+
+  border-radius:10px;
+
   font-size:15px;
+
+  font-family:inherit;
+
+  background:#fff;
+
+  color:#26313c;
+
+  outline:none;
+
+  transition:
+    border .2s,
+    box-shadow .2s;
+}
+
+input::placeholder,
+textarea::placeholder{
+  color:#a5adb4;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+  border-color:#4d7898;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(45,91,122,.09);
+}
+
+select{
+  cursor:pointer;
 }
 
 textarea{
-  min-height:90px;
+
+  min-height:100px;
+
+  resize:vertical;
+
+  line-height:1.5;
 }
 
+/* ================================
+   TWO COLUMN
+================================ */
+
+.two-column{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:14px;
+}
+
+/* ================================
+   INFO BOX
+================================ */
+
+.info-box{
+
+  margin-top:22px;
+
+  padding:14px 15px;
+
+  border-radius:11px;
+
+  background:#f7f9fa;
+
+  border:
+    1px solid #e8edf0;
+
+  color:#68747e;
+
+  font-size:13px;
+
+  line-height:1.5;
+}
+
+/* ================================
+   BUTTON
+================================ */
+
 button{
+
   width:100%;
+
   margin-top:25px;
-  padding:14px;
+
+  padding:15px;
+
   border:0;
-  border-radius:8px;
-  background:#17324d;
+
+  border-radius:11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #17324d,
+      #25587c
+    );
+
   color:white;
-  font-size:16px;
-  font-weight:bold;
+
+  font-size:15px;
+
+  font-weight:700;
+
+  letter-spacing:.5px;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 7px 18px
+    rgba(23,50,77,.20);
+
+  transition:
+    transform .15s,
+    box-shadow .15s,
+    opacity .15s;
+}
+
+button:hover{
+
+  transform:translateY(-1px);
+
+  box-shadow:
+    0 9px 22px
+    rgba(23,50,77,.25);
+}
+
+button:active{
+
+  transform:translateY(0);
+
 }
 
 button:disabled{
-  opacity:.6;
+
+  opacity:.65;
+
+  cursor:not-allowed;
+
+  transform:none;
 }
 
+/* ================================
+   SUCCESS
+================================ */
+
 .success{
+
   display:none;
-  margin-top:20px;
-  padding:15px;
-  border-radius:8px;
-  background:#e8f7ed;
+
+  margin-top:22px;
+
+  padding:20px;
+
+  border-radius:14px;
+
+  background:#f0faf4;
+
+  border:
+    1px solid #ccebd7;
+
+  color:#27633c;
+
+  text-align:center;
+
+  line-height:1.7;
+
+  font-size:14px;
+}
+
+.success-icon{
+
+  width:46px;
+  height:46px;
+
+  margin:
+    0
+    auto
+    10px;
+
+  border-radius:50%;
+
+  background:#d9f3e2;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  font-size:23px;
+}
+
+.success-title{
+
+  font-size:18px;
+
+  font-weight:700;
+
   color:#176b35;
-  line-height:1.6;
+
+  margin-bottom:5px;
 }
 
 .booking-id{
-  font-weight:bold;
-  font-size:18px;
+
+  display:inline-block;
+
+  margin:
+    7px
+    0;
+
+  padding:
+    5px
+    11px;
+
+  background:white;
+
+  border:
+    1px dashed #78b88d;
+
+  border-radius:7px;
+
+  font-weight:700;
+
+  font-size:17px;
+
+  color:#176b35;
 }
+
+/* ================================
+   FOOTER
+================================ */
+
+.footer{
+
+  text-align:center;
+
+  padding:
+    0
+    20px
+    30px;
+
+  color:#929ba3;
+
+  font-size:12px;
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:600px){
+
+  .header{
+
+    padding:
+      32px
+      18px
+      38px;
+  }
+
+  .logo{
+    font-size:30px;
+  }
+
+  .container{
+
+    margin-top:-20px;
+
+    padding:
+      0
+      12px;
+  }
+
+  .card{
+
+    padding:
+      23px
+      18px
+      25px;
+
+    border-radius:17px;
+  }
+
+  .form-header h2{
+    font-size:22px;
+  }
+
+  .two-column{
+
+    grid-template-columns:1fr;
+
+    gap:0;
+  }
+
+}
+
+/* ================================
+   SMALL MOBILE
+================================ */
+
+@media(max-width:380px){
+
+  .card{
+
+    padding:
+      20px
+      15px
+      23px;
+  }
+
+  input,
+  select,
+  textarea{
+
+    font-size:14px;
+  }
+
+}
+
 </style>
+
 </head>
 
 <body>
 
+<!-- ================================
+     HEADER
+================================ -->
+
 <div class="header">
-  <h1>QUINARA</h1>
-  <p>Tempahan Dewan & Event</p>
+
+  <div class="logo">
+    QUINARA
+  </div>
+
+  <div class="logo-line"></div>
+
+  <p>
+    Tempahan Dewan & Event
+  </p>
+
 </div>
+
+
+<!-- ================================
+     FORM
+================================ -->
 
 <div class="container">
 
 <div class="card">
 
-<h2>Tempahan Dewan</h2>
+  <div class="form-header">
 
-<form id="bookingForm">
+    <h2>
+      Tempahan Dewan
+    </h2>
 
-<label>Nama Customer *</label>
-<input id="customerName" required placeholder="Masukkan nama">
+    <p>
+      Sila lengkapkan maklumat di bawah
+      untuk membuat permohonan tempahan.
+    </p>
 
-<label>No. Telefon *</label>
-<input id="phone" type="tel" required placeholder="0123456789">
+  </div>
 
-<label>Email</label>
-<input id="email" type="email" placeholder="nama@email.com">
 
-<label>Pilih Dewan *</label>
+  <form id="bookingForm">
 
-<select id="hall" required>
-<option value="">-- Pilih Dewan --</option>
-<option>Arafah Hall</option>
-<option>Ar-Rayyan</option>
-<option>Glass Hall</option>
-<option>As-Safar</option>
-<option>Al-Marwah</option>
-</select>
 
-<label>Tarikh Majlis *</label>
-<input id="eventDate" type="date" required>
+    <!-- ============================
+         MAKLUMAT CUSTOMER
+    ============================= -->
 
-<label>Masa Majlis *</label>
-<input id="eventTime" type="time" required>
+    <div class="section-title">
 
-<label>Jenis Majlis *</label>
+      <div class="section-number">
+        1
+      </div>
 
-<select id="eventType" required>
-<option value="">-- Pilih Jenis Majlis --</option>
-<option>Wedding</option>
-<option>Nikah</option>
-<option>Dinner</option>
-<option>Corporate Event</option>
-<option>Seminar</option>
-<option>Meeting</option>
-<option>Kem / Program</option>
-<option>Birthday</option>
-<option>Other</option>
-</select>
+      Maklumat Customer
 
-<label>Jumlah Pax</label>
-<input id="pax" type="number" min="1" placeholder="Contoh: 500">
+    </div>
 
-<label>Catatan / Permintaan</label>
-<textarea id="notes" placeholder="Masukkan sebarang permintaan"></textarea>
 
-<button id="submitBtn" type="submit">
-HANTAR TEMPAHAN
-</button>
+    <label>
+      Nama Customer
+      <span class="required">*</span>
+    </label>
 
-</form>
+    <input
+      id="customerName"
+      required
+      placeholder="Contoh: Nur Aisyah"
+      autocomplete="name"
+    >
 
-<div class="success" id="successMessage">
 
-Tempahan berjaya dihantar! 🎉
+    <label>
+      No. Telefon
+      <span class="required">*</span>
+    </label>
 
-<br>
+    <input
+      id="phone"
+      type="tel"
+      required
+      placeholder="Contoh: 0123456789"
+      autocomplete="tel"
+    >
 
-ID Tempahan:
-<span class="booking-id" id="bookingId"></span>
 
-<br>
+    <label>
+      Email
+    </label>
 
-Pihak Quinara akan menghubungi anda untuk pengesahan tempahan.
+    <input
+      id="email"
+      type="email"
+      placeholder="Contoh: nama@email.com"
+      autocomplete="email"
+    >
+
+
+    <!-- ============================
+         MAKLUMAT MAJLIS
+    ============================= -->
+
+    <div class="section-title">
+
+      <div class="section-number">
+        2
+      </div>
+
+      Maklumat Majlis
+
+    </div>
+
+
+    <label>
+      Pilih Dewan
+      <span class="required">*</span>
+    </label>
+
+    <select id="hall" required>
+
+      <option value="">
+        -- Pilih Dewan --
+      </option>
+
+      <option>
+        Arafah Hall
+      </option>
+
+      <option>
+        Ar-Rayyan
+      </option>
+
+      <option>
+        Glass Hall
+      </option>
+
+      <option>
+        As-Safar
+      </option>
+
+      <option>
+        Al-Marwah
+      </option>
+
+    </select>
+
+
+    <div class="two-column">
+
+      <div>
+
+        <label>
+          Tarikh Majlis
+          <span class="required">*</span>
+        </label>
+
+        <input
+          id="eventDate"
+          type="date"
+          required
+        >
+
+      </div>
+
+
+      <div>
+
+        <label>
+          Masa Majlis
+          <span class="required">*</span>
+        </label>
+
+        <input
+          id="eventTime"
+          type="time"
+          required
+        >
+
+      </div>
+
+    </div>
+
+
+    <label>
+      Jenis Majlis
+      <span class="required">*</span>
+    </label>
+
+    <select
+      id="eventType"
+      required
+    >
+
+      <option value="">
+        -- Pilih Jenis Majlis --
+      </option>
+
+      <option>Wedding</option>
+
+      <option>Nikah</option>
+
+      <option>Dinner</option>
+
+      <option>Corporate Event</option>
+
+      <option>Seminar</option>
+
+      <option>Meeting</option>
+
+      <option>Kem / Program</option>
+
+      <option>Birthday</option>
+
+      <option>Other</option>
+
+    </select>
+
+
+    <label>
+      Jumlah Pax
+    </label>
+
+    <input
+      id="pax"
+      type="number"
+      min="1"
+      placeholder="Contoh: 500"
+    >
+
+
+    <!-- ============================
+         CATATAN
+    ============================= -->
+
+    <div class="section-title">
+
+      <div class="section-number">
+        3
+      </div>
+
+      Permintaan Tambahan
+
+    </div>
+
+
+    <label>
+      Catatan / Permintaan
+    </label>
+
+    <textarea
+      id="notes"
+      placeholder="Contoh: perlukan meja VIP, setup pelamin, atau permintaan lain..."
+    ></textarea>
+
+
+    <!-- ============================
+         INFO
+    ============================= -->
+
+    <div class="info-box">
+
+      ℹ️
+      Tempahan anda akan diterima oleh
+      pihak Quinara untuk semakan dan
+      pengesahan.
+
+    </div>
+
+
+    <!-- ============================
+         SUBMIT
+    ============================= -->
+
+    <button
+      id="submitBtn"
+      type="submit"
+    >
+
+      HANTAR TEMPAHAN
+
+    </button>
+
+
+  </form>
+
+
+  <!-- ================================
+       SUCCESS
+  ================================= -->
+
+  <div
+    class="success"
+    id="successMessage"
+  >
+
+    <div class="success-icon">
+      ✓
+    </div>
+
+    <div class="success-title">
+      Tempahan Berjaya!
+    </div>
+
+    ID Tempahan anda:
+
+    <br>
+
+    <span
+      class="booking-id"
+      id="bookingId"
+    ></span>
+
+    <br>
+
+    Pihak Quinara akan menghubungi
+    anda untuk pengesahan tempahan.
+
+  </div>
+
 
 </div>
 
 </div>
+
+
+<div class="footer">
+
+  QUINARA • Tempahan Dewan & Event
+
 </div>
+
+
+<!-- ================================
+     JAVASCRIPT
+================================ -->
 
 <script>
 
 document
 .getElementById("bookingForm")
-.addEventListener("submit", async function(e){
+.addEventListener(
+  "submit",
+  async function(e){
 
-e.preventDefault();
+    e.preventDefault();
 
-const btn =
-document.getElementById("submitBtn");
 
-btn.disabled = true;
-btn.textContent = "SEDANG HANTAR...";
+    const btn =
+      document.getElementById(
+        "submitBtn"
+      );
 
-const booking = {
 
-customerName:
-document.getElementById("customerName").value,
+    btn.disabled = true;
 
-phone:
-document.getElementById("phone").value,
+    btn.textContent =
+      "SEDANG HANTAR...";
 
-email:
-document.getElementById("email").value,
 
-hall:
-document.getElementById("hall").value,
+    const booking = {
 
-eventDate:
-document.getElementById("eventDate").value,
+      customerName:
+        document
+        .getElementById(
+          "customerName"
+        )
+        .value,
 
-eventTime:
-document.getElementById("eventTime").value,
+      phone:
+        document
+        .getElementById(
+          "phone"
+        )
+        .value,
 
-eventType:
-document.getElementById("eventType").value,
+      email:
+        document
+        .getElementById(
+          "email"
+        )
+        .value,
 
-pax:
-document.getElementById("pax").value,
+      hall:
+        document
+        .getElementById(
+          "hall"
+        )
+        .value,
 
-notes:
-document.getElementById("notes").value
+      eventDate:
+        document
+        .getElementById(
+          "eventDate"
+        )
+        .value,
 
-};
+      eventTime:
+        document
+        .getElementById(
+          "eventTime"
+        )
+        .value,
 
-try{
+      eventType:
+        document
+        .getElementById(
+          "eventType"
+        )
+        .value,
 
-const response =
-await fetch("/api/bookings",{
+      pax:
+        document
+        .getElementById(
+          "pax"
+        )
+        .value,
 
-method:"POST",
+      notes:
+        document
+        .getElementById(
+          "notes"
+        )
+        .value
 
-headers:{
-"Content-Type":"application/json"
-},
+    };
 
-body:JSON.stringify(booking)
 
-});
+    try{
 
-const result =
-await response.json();
+      const response =
+        await fetch(
+          "/api/bookings",
+          {
 
-if(!result.success){
+            method:"POST",
 
-alert(result.message);
+            headers:{
+              "Content-Type":
+                "application/json"
+            },
 
-btn.disabled=false;
-btn.textContent="HANTAR TEMPAHAN";
+            body:
+              JSON.stringify(
+                booking
+              )
 
-return;
+          }
+        );
 
-}
 
-document
-.getElementById("bookingId")
-.textContent=result.booking.id;
+      const result =
+        await response.json();
 
-document
-.getElementById("successMessage")
-.style.display="block";
 
-document
-.getElementById("bookingForm")
-.reset();
+      if(!result.success){
 
-btn.disabled=false;
-btn.textContent="HANTAR TEMPAHAN";
+        alert(
+          result.message
+        );
 
-window.scrollTo({
-top:document.body.scrollHeight,
-behavior:"smooth"
-});
+        btn.disabled = false;
 
-}catch(error){
+        btn.textContent =
+          "HANTAR TEMPAHAN";
 
-alert("Server tidak dapat dihubungi.");
+        return;
 
-btn.disabled=false;
-btn.textContent="HANTAR TEMPAHAN";
+      }
 
-}
 
-});
+      document
+      .getElementById(
+        "bookingId"
+      )
+      .textContent =
+        result.booking.id;
+
+
+      document
+      .getElementById(
+        "successMessage"
+      )
+      .style.display =
+        "block";
+
+
+      document
+      .getElementById(
+        "bookingForm"
+      )
+      .reset();
+
+
+      btn.disabled = false;
+
+      btn.textContent =
+        "HANTAR TEMPAHAN";
+
+
+      window.scrollTo({
+
+        top:
+          document.body.scrollHeight,
+
+        behavior:
+          "smooth"
+
+      });
+
+
+    }catch(error){
+
+      console.error(error);
+
+      alert(
+        "Server tidak dapat dihubungi."
+      );
+
+
+      btn.disabled = false;
+
+      btn.textContent =
+        "HANTAR TEMPAHAN";
+
+    }
+
+  }
+);
 
 </script>
 
