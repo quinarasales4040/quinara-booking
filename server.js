@@ -37,6 +37,9 @@ const ADMIN_PASSWORD = "quinara4040";
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// SERVE HTML, CSS, IMAGE DAN FAIL LAIN
+app.use(express.static(__dirname));
+
 // ================================
 // SUPABASE REQUEST
 // ================================
