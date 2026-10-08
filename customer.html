@@ -4,10 +4,7 @@
 
 <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Quinara - Tempahan Dewan</title>
 
@@ -21,264 +18,380 @@
   box-sizing:border-box;
 }
 
-/* ================================
-   BODY
-================================ */
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   margin:0;
   font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  color:#4c5146;
+
+  min-height:100vh;
+
+  background-image:
+    linear-gradient(
+      rgba(255,250,242,.30),
+      rgba(255,250,242,.30)
+    ),
+    url("quinara-bg.jpg");
+
+  background-size:cover;
+  background-position:center center;
+  background-attachment:fixed;
+}
+
+
+/* ================================
+   BACKGROUND OVERLAY
+================================ */
+
+body::before{
+  content:"";
+
+  position:fixed;
+
+  inset:0;
 
   background:
     linear-gradient(
       180deg,
-      #eef2f5 0%,
-      #f8f9fa 100%
+      rgba(255,255,255,.12),
+      rgba(255,248,238,.20)
     );
 
-  color:#26313c;
+  pointer-events:none;
+
+  z-index:-1;
 }
+
 
 /* ================================
    HEADER
 ================================ */
 
 .header{
-  background:
-    linear-gradient(
-      135deg,
-      #102b45,
-      #1c496d
-    );
-
-  color:white;
-
-  padding:
-    38px
-    20px
-    42px;
 
   text-align:center;
 
-  position:relative;
+  padding:
+    42px
+    20px
+    30px;
 
-  overflow:hidden;
-}
+  color:#30352f;
 
-.header::before{
-  content:"";
-  position:absolute;
-
-  width:220px;
-  height:220px;
-
-  border:1px solid rgba(255,255,255,.10);
-
-  border-radius:50%;
-
-  top:-110px;
-  left:-70px;
-}
-
-.header::after{
-  content:"";
-  position:absolute;
-
-  width:260px;
-  height:260px;
-
-  border:1px solid rgba(255,255,255,.08);
-
-  border-radius:50%;
-
-  bottom:-170px;
-  right:-80px;
 }
 
 .logo{
-  position:relative;
-  z-index:2;
 
-  font-size:34px;
-  font-weight:800;
+  font-size:43px;
 
-  letter-spacing:4px;
+  letter-spacing:8px;
+
+  font-weight:500;
 
   margin:0;
+
+  text-shadow:
+    0 2px 8px
+    rgba(255,255,255,.8);
 }
 
 .logo-line{
-  width:55px;
-  height:2px;
 
-  background:#d8b56a;
+  width:65px;
 
-  margin:12px auto;
+  height:1px;
+
+  background:#8c9279;
+
+  margin:
+    13px
+    auto
+    11px;
 }
 
 .header p{
-  position:relative;
-  z-index:2;
 
   margin:0;
 
-  font-size:15px;
+  font-family:
+    Arial,
+    sans-serif;
 
-  color:#e7edf2;
+  font-size:12px;
 
-  letter-spacing:.5px;
+  letter-spacing:4px;
+
+  color:#777b70;
+
+  text-transform:uppercase;
 }
+
 
 /* ================================
    CONTAINER
 ================================ */
 
 .container{
-  max-width:680px;
+
+  width:100%;
+
+  max-width:850px;
 
   margin:
-    -22px
+    0
     auto
-    40px;
+    45px;
 
   padding:
     0
-    16px;
-
-  position:relative;
-
-  z-index:5;
+    18px;
 }
+
 
 /* ================================
    CARD
 ================================ */
 
 .card{
-  background:white;
 
-  padding:
-    28px
-    26px
-    30px;
+  position:relative;
 
-  border-radius:20px;
-
-  box-shadow:
-    0 10px 35px rgba(20,45,65,.10);
+  background:
+    rgba(255,253,248,.91);
 
   border:
-    1px solid #edf0f2;
+    1px solid
+    rgba(255,255,255,.95);
+
+  border-radius:18px;
+
+  padding:
+    42px
+    62px
+    45px;
+
+  box-shadow:
+    0 15px 45px
+    rgba(70,65,48,.18);
+
+  backdrop-filter:
+    blur(4px);
+
+  overflow:hidden;
 }
 
+
 /* ================================
-   TITLE
+   CARD FLOWER DECORATION
+================================ */
+
+.card::before{
+
+  content:"🌿";
+
+  position:absolute;
+
+  top:18px;
+  left:22px;
+
+  font-size:52px;
+
+  opacity:.55;
+
+  transform:
+    rotate(-15deg);
+}
+
+.card::after{
+
+  content:"🌿";
+
+  position:absolute;
+
+  bottom:15px;
+  right:22px;
+
+  font-size:52px;
+
+  opacity:.55;
+
+  transform:
+    rotate(165deg);
+}
+
+
+/* ================================
+   FORM HEADER
 ================================ */
 
 .form-header{
+
   text-align:center;
 
-  margin-bottom:25px;
+  margin-bottom:32px;
+
+  position:relative;
+}
+
+.form-header::before{
+
+  content:"✿";
+
+  display:block;
+
+  font-size:20px;
+
+  color:#858b70;
+
+  margin-bottom:7px;
 }
 
 .form-header h2{
+
   margin:0;
 
-  color:#17324d;
+  font-size:31px;
 
-  font-size:24px;
+  font-weight:500;
+
+  color:#343932;
 }
 
 .form-header p{
+
   margin:
-    8px
+    10px
     0
     0;
 
-  color:#7b8791;
+  font-family:
+    Arial,
+    sans-serif;
 
-  font-size:14px;
+  color:#898b82;
 
-  line-height:1.5;
+  font-size:13px;
+
+  line-height:1.6;
 }
 
+
 /* ================================
-   SECTION
+   SECTION TITLE
 ================================ */
 
 .section-title{
+
   display:flex;
 
   align-items:center;
 
-  gap:10px;
+  gap:11px;
 
   margin:
-    26px
+    28px
     0
-    8px;
+    15px;
 
-  color:#17324d;
+  font-family:
+    Arial,
+    sans-serif;
 
-  font-size:14px;
+  font-size:12px;
 
   font-weight:700;
 
-  text-transform:uppercase;
+  color:#62695a;
 
-  letter-spacing:.7px;
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+}
+
+.section-title::after{
+
+  content:"";
+
+  height:1px;
+
+  flex:1;
+
+  background:
+    linear-gradient(
+      90deg,
+      #d7d9ce,
+      transparent
+    );
 }
 
 .section-title:first-of-type{
+
   margin-top:0;
 }
 
 .section-number{
-  width:26px;
-  height:26px;
 
-  border-radius:50%;
+  flex-shrink:0;
 
-  background:#17324d;
-
-  color:white;
+  width:29px;
+  height:29px;
 
   display:flex;
 
   align-items:center;
   justify-content:center;
 
+  border-radius:50%;
+
+  background:#7d846a;
+
+  color:white;
+
   font-size:12px;
+
+  letter-spacing:0;
 }
+
 
 /* ================================
    LABEL
 ================================ */
 
 label{
+
   display:block;
 
-  font-weight:600;
-
   margin:
-    17px
+    14px
     0
     7px;
 
-  font-size:14px;
+  font-family:
+    Arial,
+    sans-serif;
 
-  color:#35414c;
+  font-size:12px;
+
+  font-weight:700;
+
+  color:#555b50;
 }
 
 .required{
-  color:#c89538;
+
+  color:#9a6f4c;
 }
 
+
 /* ================================
-   INPUT
+   INPUT / SELECT / TEXTAREA
 ================================ */
 
 input,
@@ -288,57 +401,65 @@ textarea{
   width:100%;
 
   padding:
-    13px
+    12px
     14px;
 
   border:
-    1px solid #dfe4e8;
+    1px solid
+    #dddcd4;
 
-  border-radius:10px;
+  border-radius:7px;
 
-  font-size:15px;
+  background:
+    rgba(255,255,255,.82);
 
-  font-family:inherit;
+  color:#4b5048;
 
-  background:#fff;
+  font-family:
+    Arial,
+    sans-serif;
 
-  color:#26313c;
+  font-size:13px;
 
   outline:none;
 
   transition:
-    border .2s,
-    box-shadow .2s;
+    .2s ease;
 }
 
 input::placeholder,
 textarea::placeholder{
-  color:#a5adb4;
+
+  color:#aaa9a1;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
 
-  border-color:#4d7898;
+  border-color:#969d83;
 
   box-shadow:
     0 0 0 3px
-    rgba(45,91,122,.09);
+    rgba(126,135,105,.10);
+
+  background:white;
 }
 
 select{
+
   cursor:pointer;
 }
 
 textarea{
 
-  min-height:100px;
+  min-height:90px;
 
   resize:vertical;
 
   line-height:1.5;
 }
+
 
 /* ================================
    TWO COLUMN
@@ -352,8 +473,9 @@ textarea{
     1fr
     1fr;
 
-  gap:14px;
+  gap:18px;
 }
+
 
 /* ================================
    INFO BOX
@@ -361,23 +483,32 @@ textarea{
 
 .info-box{
 
-  margin-top:22px;
+  margin-top:18px;
 
-  padding:14px 15px;
+  padding:
+    11px
+    14px;
 
-  border-radius:11px;
-
-  background:#f7f9fa;
+  border-radius:7px;
 
   border:
-    1px solid #e8edf0;
+    1px solid
+    #dfe1d7;
 
-  color:#68747e;
+  background:
+    rgba(244,245,238,.88);
 
-  font-size:13px;
+  color:#70756a;
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size:11px;
 
   line-height:1.5;
 }
+
 
 /* ================================
    BUTTON
@@ -385,56 +516,68 @@ textarea{
 
 button{
 
-  width:100%;
+  display:block;
 
-  margin-top:25px;
+  width:285px;
 
-  padding:15px;
+  max-width:100%;
+
+  margin:
+    18px
+    auto
+    0;
+
+  padding:
+    14px
+    20px;
 
   border:0;
 
-  border-radius:11px;
+  border-radius:30px;
 
   background:
     linear-gradient(
       135deg,
-      #17324d,
-      #25587c
+      #777e63,
+      #656d54
     );
 
   color:white;
 
-  font-size:15px;
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size:12px;
 
   font-weight:700;
 
-  letter-spacing:.5px;
+  letter-spacing:1.5px;
 
   cursor:pointer;
 
   box-shadow:
     0 7px 18px
-    rgba(23,50,77,.20);
+    rgba(80,85,66,.20);
 
   transition:
-    transform .15s,
-    box-shadow .15s,
-    opacity .15s;
+    .2s ease;
 }
 
 button:hover{
 
-  transform:translateY(-1px);
+  transform:
+    translateY(-2px);
 
   box-shadow:
-    0 9px 22px
-    rgba(23,50,77,.25);
+    0 10px 23px
+    rgba(80,85,66,.27);
 }
 
 button:active{
 
-  transform:translateY(0);
-
+  transform:
+    translateY(0);
 }
 
 button:disabled{
@@ -446,6 +589,7 @@ button:disabled{
   transform:none;
 }
 
+
 /* ================================
    SUCCESS
 ================================ */
@@ -456,27 +600,34 @@ button:disabled{
 
   margin-top:22px;
 
-  padding:20px;
+  padding:22px;
 
-  border-radius:14px;
+  border-radius:12px;
 
-  background:#f0faf4;
+  background:
+    rgba(241,248,237,.96);
 
   border:
-    1px solid #ccebd7;
+    1px solid
+    #cfdcc8;
 
-  color:#27633c;
+  color:#596651;
 
   text-align:center;
 
-  line-height:1.7;
+  font-family:
+    Arial,
+    sans-serif;
 
-  font-size:14px;
+  font-size:13px;
+
+  line-height:1.7;
 }
 
 .success-icon{
 
   width:46px;
+
   height:46px;
 
   margin:
@@ -486,12 +637,15 @@ button:disabled{
 
   border-radius:50%;
 
-  background:#d9f3e2;
+  background:#dce8d5;
 
   display:flex;
 
   align-items:center;
+
   justify-content:center;
+
+  color:#66745d;
 
   font-size:23px;
 }
@@ -502,7 +656,7 @@ button:disabled{
 
   font-weight:700;
 
-  color:#176b35;
+  color:#53604b;
 
   margin-bottom:5px;
 }
@@ -517,12 +671,13 @@ button:disabled{
 
   padding:
     5px
-    11px;
+    12px;
 
   background:white;
 
   border:
-    1px dashed #78b88d;
+    1px dashed
+    #9ca990;
 
   border-radius:7px;
 
@@ -530,8 +685,9 @@ button:disabled{
 
   font-size:17px;
 
-  color:#176b35;
+  color:#596651;
 }
+
 
 /* ================================
    FOOTER
@@ -546,60 +702,105 @@ button:disabled{
     20px
     30px;
 
-  color:#929ba3;
+  color:#777a71;
 
-  font-size:12px;
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size:10px;
+
+  letter-spacing:1px;
 }
+
 
 /* ================================
    MOBILE
 ================================ */
 
-@media(max-width:600px){
+@media(max-width:700px){
+
+  body{
+
+    background-attachment:
+      scroll;
+
+    background-position:
+      center center;
+  }
 
   .header{
 
     padding:
       32px
-      18px
-      38px;
+      15px
+      25px;
   }
 
   .logo{
-    font-size:30px;
+
+    font-size:31px;
+
+    letter-spacing:6px;
+  }
+
+  .header p{
+
+    font-size:9px;
+
+    letter-spacing:2.5px;
   }
 
   .container{
 
-    margin-top:-20px;
-
     padding:
       0
-      12px;
+      10px;
   }
 
   .card{
 
     padding:
-      23px
-      18px
-      25px;
+      31px
+      20px
+      32px;
 
-    border-radius:17px;
+    border-radius:15px;
+  }
+
+  .card::before{
+
+    font-size:40px;
+
+    left:10px;
+  }
+
+  .card::after{
+
+    font-size:40px;
+
+    right:10px;
   }
 
   .form-header h2{
-    font-size:22px;
+
+    font-size:25px;
   }
 
   .two-column{
 
-    grid-template-columns:1fr;
+    grid-template-columns:
+      1fr;
 
     gap:0;
   }
 
+  button{
+
+    width:100%;
+  }
 }
+
 
 /* ================================
    SMALL MOBILE
@@ -610,25 +811,31 @@ button:disabled{
   .card{
 
     padding:
-      20px
-      15px
-      23px;
+      27px
+      16px
+      28px;
+  }
+
+  .form-header h2{
+
+    font-size:23px;
   }
 
   input,
   select,
   textarea{
 
-    font-size:14px;
+    font-size:13px;
   }
-
 }
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <!-- ================================
      HEADER
@@ -649,317 +856,362 @@ button:disabled{
 </div>
 
 
+
 <!-- ================================
-     FORM
+     MAIN FORM
 ================================ -->
 
 <div class="container">
 
-<div class="card">
+  <div class="card">
 
-  <div class="form-header">
 
-    <h2>
-      Tempahan Dewan
-    </h2>
+    <!-- FORM HEADER -->
 
-    <p>
-      Sila lengkapkan maklumat di bawah
-      untuk membuat permohonan tempahan.
-    </p>
+    <div class="form-header">
+
+      <h2>
+        Tempahan Dewan
+      </h2>
+
+      <p>
+        Sila lengkapkan maklumat di bawah
+        untuk membuat permohonan tempahan.
+      </p>
+
+    </div>
+
+
+
+    <form id="bookingForm">
+
+
+      <!-- ============================
+           CUSTOMER
+      ============================= -->
+
+      <div class="section-title">
+
+        <div class="section-number">
+          1
+        </div>
+
+        Maklumat Customer
+
+      </div>
+
+
+      <div class="two-column">
+
+        <div>
+
+          <label>
+            Nama Customer
+            <span class="required">*</span>
+          </label>
+
+          <input
+            id="customerName"
+            required
+            placeholder="Contoh: Nur Aisyah"
+            autocomplete="name"
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            No. Telefon
+            <span class="required">*</span>
+          </label>
+
+          <input
+            id="phone"
+            type="tel"
+            required
+            placeholder="Contoh: 0123456789"
+            autocomplete="tel"
+          >
+
+        </div>
+
+      </div>
+
+
+      <label>
+        Email
+      </label>
+
+      <input
+        id="email"
+        type="email"
+        placeholder="Contoh: nama@email.com"
+        autocomplete="email"
+      >
+
+
+
+      <!-- ============================
+           EVENT
+      ============================= -->
+
+      <div class="section-title">
+
+        <div class="section-number">
+          2
+        </div>
+
+        Maklumat Majlis
+
+      </div>
+
+
+      <label>
+        Pilih Dewan
+        <span class="required">*</span>
+      </label>
+
+      <select
+        id="hall"
+        required
+      >
+
+        <option value="">
+          -- Pilih Dewan --
+        </option>
+
+        <option>
+          Arafah Hall
+        </option>
+
+        <option>
+          Ar-Rayyan
+        </option>
+
+        <option>
+          Glass Hall
+        </option>
+
+        <option>
+          As-Safar
+        </option>
+
+        <option>
+          Al-Marwah
+        </option>
+
+      </select>
+
+
+
+      <div class="two-column">
+
+        <div>
+
+          <label>
+            Tarikh Majlis
+            <span class="required">*</span>
+          </label>
+
+          <input
+            id="eventDate"
+            type="date"
+            required
+          >
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Masa Majlis
+            <span class="required">*</span>
+          </label>
+
+          <input
+            id="eventTime"
+            type="time"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+
+      <div class="two-column">
+
+        <div>
+
+          <label>
+            Jenis Majlis
+            <span class="required">*</span>
+          </label>
+
+          <select
+            id="eventType"
+            required
+          >
+
+            <option value="">
+              -- Pilih Jenis Majlis --
+            </option>
+
+            <option>Wedding</option>
+
+            <option>Nikah</option>
+
+            <option>Dinner</option>
+
+            <option>Corporate Event</option>
+
+            <option>Seminar</option>
+
+            <option>Meeting</option>
+
+            <option>Kem / Program</option>
+
+            <option>Birthday</option>
+
+            <option>Other</option>
+
+          </select>
+
+        </div>
+
+
+        <div>
+
+          <label>
+            Jumlah Pax
+          </label>
+
+          <input
+            id="pax"
+            type="number"
+            min="1"
+            placeholder="Contoh: 500"
+          >
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ============================
+           NOTES
+      ============================= -->
+
+      <div class="section-title">
+
+        <div class="section-number">
+          3
+        </div>
+
+        Permintaan Tambahan
+
+      </div>
+
+
+      <label>
+        Catatan / Permintaan
+      </label>
+
+      <textarea
+        id="notes"
+        placeholder="Contoh: perlukan meja VIP, setup pelamin, atau permintaan lain..."
+      ></textarea>
+
+
+
+      <!-- ============================
+           INFO
+      ============================= -->
+
+      <div class="info-box">
+
+        ℹ️
+        Tempahan anda akan diterima oleh
+        pihak Quinara untuk semakan dan
+        pengesahan.
+
+      </div>
+
+
+
+      <!-- ============================
+           SUBMIT
+      ============================= -->
+
+      <button
+        id="submitBtn"
+        type="submit"
+      >
+
+        ✈ &nbsp; HANTAR TEMPAHAN
+
+      </button>
+
+
+    </form>
+
+
+
+    <!-- ================================
+         SUCCESS MESSAGE
+    ================================= -->
+
+    <div
+      class="success"
+      id="successMessage"
+    >
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <div class="success-title">
+        Tempahan Berjaya!
+      </div>
+
+      ID Tempahan anda:
+
+      <br>
+
+      <span
+        class="booking-id"
+        id="bookingId"
+      ></span>
+
+      <br>
+
+      Pihak Quinara akan menghubungi
+      anda untuk pengesahan tempahan.
+
+    </div>
+
 
   </div>
 
-
-  <form id="bookingForm">
-
-
-    <!-- ============================
-         MAKLUMAT CUSTOMER
-    ============================= -->
-
-    <div class="section-title">
-
-      <div class="section-number">
-        1
-      </div>
-
-      Maklumat Customer
-
-    </div>
-
-
-    <label>
-      Nama Customer
-      <span class="required">*</span>
-    </label>
-
-    <input
-      id="customerName"
-      required
-      placeholder="Contoh: Nur Aisyah"
-      autocomplete="name"
-    >
-
-
-    <label>
-      No. Telefon
-      <span class="required">*</span>
-    </label>
-
-    <input
-      id="phone"
-      type="tel"
-      required
-      placeholder="Contoh: 0123456789"
-      autocomplete="tel"
-    >
-
-
-    <label>
-      Email
-    </label>
-
-    <input
-      id="email"
-      type="email"
-      placeholder="Contoh: nama@email.com"
-      autocomplete="email"
-    >
-
-
-    <!-- ============================
-         MAKLUMAT MAJLIS
-    ============================= -->
-
-    <div class="section-title">
-
-      <div class="section-number">
-        2
-      </div>
-
-      Maklumat Majlis
-
-    </div>
-
-
-    <label>
-      Pilih Dewan
-      <span class="required">*</span>
-    </label>
-
-    <select id="hall" required>
-
-      <option value="">
-        -- Pilih Dewan --
-      </option>
-
-      <option>
-        Arafah Hall
-      </option>
-
-      <option>
-        Ar-Rayyan
-      </option>
-
-      <option>
-        Glass Hall
-      </option>
-
-      <option>
-        As-Safar
-      </option>
-
-      <option>
-        Al-Marwah
-      </option>
-
-    </select>
-
-
-    <div class="two-column">
-
-      <div>
-
-        <label>
-          Tarikh Majlis
-          <span class="required">*</span>
-        </label>
-
-        <input
-          id="eventDate"
-          type="date"
-          required
-        >
-
-      </div>
-
-
-      <div>
-
-        <label>
-          Masa Majlis
-          <span class="required">*</span>
-        </label>
-
-        <input
-          id="eventTime"
-          type="time"
-          required
-        >
-
-      </div>
-
-    </div>
-
-
-    <label>
-      Jenis Majlis
-      <span class="required">*</span>
-    </label>
-
-    <select
-      id="eventType"
-      required
-    >
-
-      <option value="">
-        -- Pilih Jenis Majlis --
-      </option>
-
-      <option>Wedding</option>
-
-      <option>Nikah</option>
-
-      <option>Dinner</option>
-
-      <option>Corporate Event</option>
-
-      <option>Seminar</option>
-
-      <option>Meeting</option>
-
-      <option>Kem / Program</option>
-
-      <option>Birthday</option>
-
-      <option>Other</option>
-
-    </select>
-
-
-    <label>
-      Jumlah Pax
-    </label>
-
-    <input
-      id="pax"
-      type="number"
-      min="1"
-      placeholder="Contoh: 500"
-    >
-
-
-    <!-- ============================
-         CATATAN
-    ============================= -->
-
-    <div class="section-title">
-
-      <div class="section-number">
-        3
-      </div>
-
-      Permintaan Tambahan
-
-    </div>
-
-
-    <label>
-      Catatan / Permintaan
-    </label>
-
-    <textarea
-      id="notes"
-      placeholder="Contoh: perlukan meja VIP, setup pelamin, atau permintaan lain..."
-    ></textarea>
-
-
-    <!-- ============================
-         INFO
-    ============================= -->
-
-    <div class="info-box">
-
-      ℹ️
-      Tempahan anda akan diterima oleh
-      pihak Quinara untuk semakan dan
-      pengesahan.
-
-    </div>
-
-
-    <!-- ============================
-         SUBMIT
-    ============================= -->
-
-    <button
-      id="submitBtn"
-      type="submit"
-    >
-
-      HANTAR TEMPAHAN
-
-    </button>
-
-
-  </form>
-
-
-  <!-- ================================
-       SUCCESS
-  ================================= -->
-
-  <div
-    class="success"
-    id="successMessage"
-  >
-
-    <div class="success-icon">
-      ✓
-    </div>
-
-    <div class="success-title">
-      Tempahan Berjaya!
-    </div>
-
-    ID Tempahan anda:
-
-    <br>
-
-    <span
-      class="booking-id"
-      id="bookingId"
-    ></span>
-
-    <br>
-
-    Pihak Quinara akan menghubungi
-    anda untuk pengesahan tempahan.
-
-  </div>
-
-
 </div>
 
-</div>
 
+
+<!-- ================================
+     FOOTER
+================================ -->
 
 <div class="footer">
 
   QUINARA • Tempahan Dewan & Event
 
 </div>
+
 
 
 <!-- ================================
@@ -996,21 +1248,24 @@ document
         .getElementById(
           "customerName"
         )
-        .value,
+        .value
+        .trim(),
 
       phone:
         document
         .getElementById(
           "phone"
         )
-        .value,
+        .value
+        .trim(),
 
       email:
         document
         .getElementById(
           "email"
         )
-        .value,
+        .value
+        .trim(),
 
       hall:
         document
@@ -1053,6 +1308,7 @@ document
           "notes"
         )
         .value
+        .trim()
 
     };
 
@@ -1087,13 +1343,14 @@ document
       if(!result.success){
 
         alert(
-          result.message
+          result.message ||
+          "Tempahan tidak berjaya."
         );
 
         btn.disabled = false;
 
         btn.textContent =
-          "HANTAR TEMPAHAN";
+          "✈   HANTAR TEMPAHAN";
 
         return;
 
@@ -1126,7 +1383,7 @@ document
       btn.disabled = false;
 
       btn.textContent =
-        "HANTAR TEMPAHAN";
+        "✈   HANTAR TEMPAHAN";
 
 
       window.scrollTo({
@@ -1152,7 +1409,7 @@ document
       btn.disabled = false;
 
       btn.textContent =
-        "HANTAR TEMPAHAN";
+        "✈   HANTAR TEMPAHAN";
 
     }
 
@@ -1160,6 +1417,7 @@ document
 );
 
 </script>
+
 
 </body>
 </html>
