@@ -3,1290 +3,915 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Quinara Admin</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
+:root{
+  --cream:#f8f5ef;
+  --paper:#fffdf9;
+  --brown:#594438;
+  --brown-dark:#392a22;
+  --gold:#b99a62;
+  --gold-light:#e8dcc4;
+  --text:#39332d;
+  --muted:#8b8176;
+  --line:#e9e1d5;
+  --green:#47765a;
+  --red:#a94d49;
+  --shadow:0 8px 28px rgba(70,49,31,.07);
 }
+
+*{box-sizing:border-box}
 
 body{
   margin:0;
-  font-family:Arial,sans-serif;
-  background:#f5f7f9;
-  color:#222;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  line-height:1.5;
 }
+
+button,input{font:inherit}
+button{cursor:pointer;transition:.2s}
+button:hover{filter:brightness(.95)}
+button:disabled{opacity:.6;cursor:not-allowed}
 
 .header{
-  background:#17324d;
-  color:white;
-  padding:25px 20px;
-  text-align:center;
+  background:linear-gradient(135deg,#392a22,#66503d);
+  color:#fffaf1;
+  padding:30px 20px;
+  border-bottom:4px solid var(--gold);
 }
 
-.header h1{
-  margin:0;
-}
-
-.header p{
-  margin:8px 0 0;
-}
-
-.container{
-  max-width:1200px;
-  margin:25px auto;
-  padding:0 15px;
-}
-
-.card{
-  background:white;
-  border-radius:15px;
-  padding:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.08);
-  margin-bottom:20px;
-}
-
-.top{
+.header-inner{
+  max-width:1250px;
+  margin:auto;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:10px;
+  gap:20px;
   flex-wrap:wrap;
 }
 
-h2{
-  color:#17324d;
+.brand{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:32px;
+  letter-spacing:5px;
   margin:0;
+  font-weight:normal;
+}
+
+.header p{
+  margin:5px 0 0;
+  color:#e7dac5;
+  font-size:13px;
+  letter-spacing:1px;
+}
+
+.header-tag{
+  border:1px solid rgba(232,220,196,.5);
+  border-radius:30px;
+  padding:9px 15px;
+  font-size:12px;
+  color:#f2e5cf;
+  letter-spacing:1px;
+}
+
+.container{
+  max-width:1250px;
+  margin:28px auto;
+  padding:0 20px 35px;
+}
+
+.section-card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:24px;
+  margin-bottom:22px;
+  box-shadow:var(--shadow);
+}
+
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.heading-title{
+  margin:0;
+  color:var(--brown-dark);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:23px;
+  font-weight:normal;
+}
+
+.heading-subtitle{
+  color:var(--muted);
+  font-size:12px;
+  margin:5px 0 0;
 }
 
 button{
   border:0;
   border-radius:8px;
-  padding:11px 16px;
-  cursor:pointer;
+  padding:11px 15px;
   font-weight:bold;
+  font-size:12px;
+  letter-spacing:.3px;
 }
 
 .refresh{
-  background:#17324d;
+  background:var(--brown);
   color:white;
-}
-
-.search{
-  width:100%;
-  padding:13px;
-  border:1px solid #ddd;
-  border-radius:8px;
-  margin-top:20px;
-  font-size:15px;
-}
-
-.table-wrap{
-  overflow-x:auto;
-  margin-top:20px;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:1000px;
-}
-
-th{
-  background:#17324d;
-  color:white;
-  padding:12px;
-  text-align:left;
-}
-
-td{
-  padding:12px;
-  border-bottom:1px solid #eee;
-  vertical-align:top;
-}
-
-tr:hover{
-  background:#fafafa;
-}
-
-.status{
-  padding:6px 10px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:bold;
-  display:inline-block;
-}
-
-.pending{
-  background:#fff3cd;
-  color:#856404;
-}
-
-.confirmed{
-  background:#d4edda;
-  color:#155724;
-}
-
-.cancelled{
-  background:#f8d7da;
-  color:#721c24;
-}
-
-.action{
-  display:flex;
-  gap:5px;
-  flex-wrap:wrap;
-}
-
-.confirm{
-  background:#198754;
-  color:white;
-}
-
-.cancel{
-  background:#dc3545;
-  color:white;
-}
-
-.empty{
-  text-align:center;
-  padding:40px;
-  color:#777;
 }
 
 .summary{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(3,minmax(0,1fr));
   gap:15px;
-  margin-top:20px;
 }
 
 .summary-box{
-  background:#f5f7f9;
-  padding:18px;
-  border-radius:10px;
-  text-align:center;
+  position:relative;
+  background:#fffaf1;
+  border:1px solid var(--gold-light);
+  border-radius:13px;
+  padding:20px;
+  min-height:115px;
+}
+
+.summary-box::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:4px;
+  height:100%;
+  background:var(--gold);
+  border-radius:13px 0 0 13px;
+}
+
+.summary-label{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:bold;
+  text-transform:uppercase;
+  letter-spacing:.7px;
 }
 
 .summary-box strong{
   display:block;
-  font-size:28px;
-  color:#17324d;
+  font-size:34px;
+  color:var(--brown-dark);
+  margin-top:5px;
+  font-weight:600;
 }
 
+.summary-box.pending-box::before{background:#c89a35}
+.summary-box.confirmed-box::before{background:var(--green)}
 
-/* =========================
-   CALENDAR
-========================= */
+.search{
+  width:100%;
+  padding:14px 16px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  margin-top:20px;
+  font-size:14px;
+  outline:none;
+  background:#fff;
+  color:var(--text);
+}
+
+.search:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(185,154,98,.13);
+}
+
+/* CALENDAR */
 
 .calendar-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
   margin-bottom:20px;
-  gap:10px;
 }
 
 .calendar-title{
-  font-size:20px;
-  font-weight:bold;
-  color:#17324d;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:23px;
+  color:var(--brown-dark);
 }
 
 .calendar-buttons{
   display:flex;
-  gap:6px;
+  gap:7px;
 }
 
 .calendar-buttons button{
-  background:#17324d;
+  background:#f3ecdf;
+  color:var(--brown);
+  border:1px solid var(--line);
+}
+
+.calendar-buttons .today-button{
+  background:var(--brown);
   color:white;
+  border-color:var(--brown);
 }
-
-.calendar{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  border:1px solid #ddd;
-  border-radius:10px;
-  overflow:hidden;
-}
-
-.day-name{
-  background:#17324d;
-  color:white;
-  padding:10px 5px;
-  text-align:center;
-  font-weight:bold;
-  font-size:13px;
-}
-
-.day{
-  min-height:100px;
-  padding:7px;
-  border-right:1px solid #eee;
-  border-top:1px solid #eee;
-  background:white;
-}
-
-.day-number{
-  font-weight:bold;
-  margin-bottom:5px;
-}
-
-.other-month{
-  background:#f8f8f8;
-  color:#aaa;
-}
-
-.today{
-  background:#eef5fa;
-}
-
-
-/* =========================
-   WARNA DEWAN
-========================= */
-
-.booking{
-  display:block;
-  padding:6px;
-  margin-top:4px;
-  border-radius:6px;
-  font-size:11px;
-  line-height:1.3;
-  overflow:hidden;
-  color:#222;
-  border-left:5px solid;
-}
-
-
-/* Arafah Hall */
-.booking.arafah{
-  background:#dbeafe;
-  border-left-color:#2563eb;
-}
-
-
-/* Ar-Rayyan */
-.booking.rayyan{
-  background:#dcfce7;
-  border-left-color:#16a34a;
-}
-
-
-/* Glass Hall */
-.booking.glass{
-  background:#fef3c7;
-  border-left-color:#d97706;
-}
-
-
-/* As-Safar */
-.booking.safar{
-  background:#f3e8ff;
-  border-left-color:#9333ea;
-}
-
-
-/* Al-Marwah */
-.booking.marwah{
-  background:#fce7f3;
-  border-left-color:#db2777;
-}
-
-
-/* Cancelled */
-.booking.cancelled-booking{
-  background:#f8d7da !important;
-  border-left-color:#dc3545 !important;
-  color:#721c24;
-  text-decoration:line-through;
-}
-
-
-/* =========================
-   LEGEND
-========================= */
 
 .legend{
   display:flex;
   flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:15px;
+  gap:12px 17px;
+  margin-bottom:17px;
 }
 
 .legend-item{
   display:flex;
   align-items:center;
-  gap:6px;
+  gap:7px;
   font-size:12px;
-  font-weight:bold;
+  color:#65594e;
 }
 
 .legend-color{
-  width:14px;
-  height:14px;
-  border-radius:4px;
+  width:11px;
+  height:11px;
+  border-radius:3px;
 }
 
+.legend-arafah{background:#6485b5}
+.legend-rayyan{background:#649579}
+.legend-glass{background:#c49a50}
+.legend-safar{background:#a087bd}
+.legend-marwah{background:#c67e9c}
 
-/* Legend colours */
-
-.legend-arafah{
-  background:#2563eb;
+.calendar-wrap{
+  overflow-x:auto;
+  border:1px solid var(--line);
+  border-radius:11px;
 }
 
-.legend-rayyan{
-  background:#16a34a;
+.calendar{
+  display:grid;
+  grid-template-columns:repeat(7,minmax(0,1fr));
+  min-width:620px;
+  overflow:hidden;
 }
 
-.legend-glass{
-  background:#d97706;
+.day-name{
+  background:#66503d;
+  color:#fffaf1;
+  padding:12px 4px;
+  text-align:center;
+  font-weight:bold;
+  font-size:12px;
 }
 
-.legend-safar{
-  background:#9333ea;
+.day{
+  min-width:0;
+  min-height:115px;
+  padding:7px;
+  border-top:1px solid var(--line);
+  border-right:1px solid var(--line);
+  background:#fffdf9;
 }
 
-.legend-marwah{
-  background:#db2777;
+.day-number{
+  font-size:12px;
+  font-weight:bold;
+  color:var(--brown);
+  margin-bottom:6px;
 }
 
+.other-month{
+  background:#f6f2eb;
+}
+
+.other-month .day-number{color:#b9afa2}
+
+.today{
+  background:#fff6e5;
+  box-shadow:inset 0 0 0 2px var(--gold);
+}
+
+.booking{
+  display:block;
+  padding:6px;
+  margin-top:5px;
+  border-radius:5px;
+  font-size:10px;
+  line-height:1.4;
+  overflow-wrap:anywhere;
+  border-left:3px solid;
+  color:#40362d;
+}
+
+.booking strong{font-size:10px}
+
+.booking.arafah{
+  background:#e9eff8;
+  border-left-color:#6485b5;
+}
+.booking.rayyan{
+  background:#e7f1e9;
+  border-left-color:#649579;
+}
+.booking.glass{
+  background:#f8f0dc;
+  border-left-color:#c49a50;
+}
+.booking.safar{
+  background:#f0eaf6;
+  border-left-color:#a087bd;
+}
+.booking.marwah{
+  background:#f7e9ef;
+  border-left-color:#c67e9c;
+}
+.booking.cancelled-booking{
+  background:#f5e4e1!important;
+  border-left-color:var(--red)!important;
+  color:#88443f;
+  text-decoration:line-through;
+}
+
+/* BOOKING TABLE */
+
+.table-wrap{
+  width:100%;
+  overflow-x:auto;
+  border:1px solid var(--line);
+  border-radius:10px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:1050px;
+  font-size:13px;
+}
+
+th{
+  background:#66503d;
+  color:#fffaf1;
+  padding:14px 12px;
+  text-align:left;
+  white-space:nowrap;
+  font-size:11px;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+}
+
+td{
+  padding:14px 12px;
+  border-bottom:1px solid #eee7dd;
+  vertical-align:top;
+}
+
+tbody tr:hover{background:#fcf7ee}
+tbody tr:last-child td{border-bottom:0}
+
+.booking-id{
+  color:var(--brown);
+  white-space:nowrap;
+}
+
+.customer-email{
+  display:inline-block;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:11px;
+  overflow-wrap:anywhere;
+}
+
+.status{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:10px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.status.pending{
+  background:#fbefd1;
+  color:#86621f;
+}
+.status.confirmed{
+  background:#e2eee5;
+  color:#3e6c4e;
+}
+.status.cancelled{
+  background:#f4e1df;
+  color:#984c47;
+}
+
+.action{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+.action button{
+  padding:8px 10px;
+  font-size:10px;
+}
+
+.confirm{
+  background:var(--green);
+  color:white;
+}
+.cancel{
+  background:var(--red);
+  color:white;
+}
+
+.empty{
+  text-align:center;
+  padding:35px 15px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.footer{
+  text-align:center;
+  color:#9b8d7d;
+  font-size:11px;
+  padding:0 10px 25px;
+  letter-spacing:.5px;
+}
 
 @media(max-width:700px){
-
-  .summary{
-    grid-template-columns:1fr;
-  }
-
-  .day{
-    min-height:80px;
-    padding:4px;
-  }
-
-  .day-name{
-    font-size:10px;
-  }
-
-  .booking{
-    font-size:9px;
-    padding:3px;
-  }
-
-  .calendar-title{
-    font-size:16px;
-  }
-
-  .legend{
-    gap:7px;
-  }
-
+  .header{padding:24px 17px}
+  .brand{font-size:27px}
+  .container{padding:0 12px 25px;margin:18px auto}
+  .section-card{padding:17px;border-radius:13px}
+  .heading-title,.calendar-title{font-size:20px}
+  .summary{grid-template-columns:1fr;gap:10px}
+  .summary-box{min-height:auto;padding:15px 18px}
+  .summary-box strong{font-size:28px}
+  .calendar-buttons button{padding:9px 11px}
+  .day{min-height:86px;padding:4px}
+  .booking{font-size:9px;padding:4px}
+  .booking strong{font-size:9px}
+  .day-name{font-size:10px;padding:10px 2px}
+  .legend{gap:9px 12px}
 }
-
 </style>
 </head>
 
 <body>
 
-<div class="header">
-
-<h1>QUINARA ADMIN</h1>
-
-<p>Pengurusan Tempahan Dewan</p>
-
-</div>
-
-<div class="container">
-
-
-<!-- =========================
-     DASHBOARD
-========================= -->
-
-<div class="card">
-
-<div class="top">
-
-<h2>Dashboard Tempahan</h2>
-
-<button
-class="refresh"
-onclick="loadBookings()">
-
-REFRESH
-
-</button>
-
-</div>
-
-<div class="summary">
-
-<div class="summary-box">
-
-<strong id="total">0</strong>
-
-Jumlah Tempahan
-
-</div>
-
-<div class="summary-box">
-
-<strong id="pending">0</strong>
-
-Pending
-
-</div>
-
-<div class="summary-box">
-
-<strong id="confirmed">0</strong>
-
-Confirmed
-
-</div>
-
-</div>
-
-<input
-class="search"
-id="search"
-placeholder="Cari nama, telefon, dewan atau ID tempahan..."
-oninput="displayBookings()"
->
-
-</div>
-
-
-<!-- =========================
-     CALENDAR
-========================= -->
-
-<div class="card">
-
-<div class="calendar-header">
-
-<div
-class="calendar-title"
-id="calendarTitle">
-</div>
-
-<div class="calendar-buttons">
-
-<button onclick="previousMonth()">
-‹
-</button>
-
-<button onclick="goToday()">
-Hari Ini
-</button>
-
-<button onclick="nextMonth()">
-›
-</button>
-
-</div>
-
-</div>
-
-
-<!-- LEGEND DEWAN -->
-
-<div class="legend">
-
-<div class="legend-item">
-<span class="legend-color legend-arafah"></span>
-Arafah Hall
-</div>
-
-<div class="legend-item">
-<span class="legend-color legend-rayyan"></span>
-Ar-Rayyan
-</div>
-
-<div class="legend-item">
-<span class="legend-color legend-glass"></span>
-Glass Hall
-</div>
-
-<div class="legend-item">
-<span class="legend-color legend-safar"></span>
-As-Safar
-</div>
-
-<div class="legend-item">
-<span class="legend-color legend-marwah"></span>
-Al-Marwah
-</div>
-
-</div>
-
-
-<div class="calendar">
-
-<div class="day-name">Ahad</div>
-<div class="day-name">Isnin</div>
-<div class="day-name">Selasa</div>
-<div class="day-name">Rabu</div>
-<div class="day-name">Khamis</div>
-<div class="day-name">Jumaat</div>
-<div class="day-name">Sabtu</div>
-
-<div id="calendarDays" style="display:contents"></div>
-
-</div>
-
-</div>
-
-
-<!-- =========================
-     BOOKING LIST
-========================= -->
-
-<div class="card">
-
-<div
-id="loading"
-class="empty">
-
-Sedang mengambil data tempahan...
-
-</div>
-
-<div class="table-wrap">
-
-<table
-id="bookingTable"
-style="display:none">
-
-<thead>
-
-<tr>
-
-<th>ID</th>
-<th>Customer</th>
-<th>Telefon</th>
-<th>Dewan</th>
-<th>Tarikh</th>
-<th>Masa</th>
-<th>Majlis</th>
-<th>Pax</th>
-<th>Status</th>
-<th>Tindakan</th>
-
-</tr>
-
-</thead>
-
-<tbody id="bookingBody"></tbody>
-
-</table>
-
-</div>
-
-<div
-id="empty"
-class="empty"
-style="display:none">
-
-Tiada tempahan dijumpai.
-
-</div>
-
-</div>
-
-</div>
-
+<header class="header">
+  <div class="header-inner">
+    <div>
+      <h1 class="brand">QUINARA</h1>
+      <p>PENGURUSAN TEMPAHAN DEWAN</p>
+    </div>
+    <div class="header-tag">ADMIN DASHBOARD</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- DASHBOARD -->
+  <section class="section-card">
+    <div class="section-heading">
+      <div>
+        <h2 class="heading-title">Dashboard Tempahan</h2>
+        <p class="heading-subtitle">Ringkasan tempahan Quinara</p>
+      </div>
+      <button class="refresh" onclick="loadBookings()">↻ REFRESH</button>
+    </div>
+
+    <div class="summary">
+      <div class="summary-box">
+        <div class="summary-label">Jumlah Tempahan</div>
+        <strong id="total">0</strong>
+      </div>
+      <div class="summary-box pending-box">
+        <div class="summary-label">Menunggu Pengesahan</div>
+        <strong id="pending">0</strong>
+      </div>
+      <div class="summary-box confirmed-box">
+        <div class="summary-label">Tempahan Disahkan</div>
+        <strong id="confirmed">0</strong>
+      </div>
+    </div>
+
+    <input
+      class="search"
+      id="search"
+      placeholder="Cari nama, telefon, dewan atau ID tempahan..."
+      oninput="displayBookings()"
+      aria-label="Cari tempahan"
+    >
+  </section>
+
+  <!-- CALENDAR -->
+  <section class="section-card">
+    <div class="calendar-header">
+      <div>
+        <h2 class="heading-title">Kalendar Tempahan</h2>
+        <div class="heading-subtitle">Paparan tempahan mengikut tarikh dan dewan</div>
+      </div>
+      <div class="calendar-buttons">
+        <button onclick="previousMonth()" aria-label="Bulan sebelumnya">‹</button>
+        <button class="today-button" onclick="goToday()">Hari Ini</button>
+        <button onclick="nextMonth()" aria-label="Bulan seterusnya">›</button>
+      </div>
+    </div>
+
+    <div class="calendar-title" id="calendarTitle" style="margin-bottom:15px"></div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-color legend-arafah"></span>Arafah Hall</div>
+      <div class="legend-item"><span class="legend-color legend-rayyan"></span>Ar-Rayyan</div>
+      <div class="legend-item"><span class="legend-color legend-glass"></span>Glass Hall</div>
+      <div class="legend-item"><span class="legend-color legend-safar"></span>As-Safar</div>
+      <div class="legend-item"><span class="legend-color legend-marwah"></span>Al-Marwah</div>
+    </div>
+
+    <div class="calendar-wrap">
+      <div class="calendar">
+        <div class="day-name">Ahad</div>
+        <div class="day-name">Isnin</div>
+        <div class="day-name">Selasa</div>
+        <div class="day-name">Rabu</div>
+        <div class="day-name">Khamis</div>
+        <div class="day-name">Jumaat</div>
+        <div class="day-name">Sabtu</div>
+        <div id="calendarDays" style="display:contents"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING LIST -->
+  <section class="section-card">
+    <div class="section-heading">
+      <div>
+        <h2 class="heading-title">Senarai Tempahan</h2>
+        <p class="heading-subtitle">Semak butiran dan kemas kini status tempahan</p>
+      </div>
+    </div>
+
+    <div id="loading" class="empty">Sedang mengambil data tempahan...</div>
+
+    <div class="table-wrap">
+      <table id="bookingTable" style="display:none">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Pelanggan</th>
+            <th>Telefon</th>
+            <th>Dewan</th>
+            <th>Tarikh</th>
+            <th>Masa</th>
+            <th>Jenis Majlis</th>
+            <th>Pax</th>
+            <th>Status</th>
+            <th>Tindakan</th>
+          </tr>
+        </thead>
+        <tbody id="bookingBody"></tbody>
+      </table>
+    </div>
+
+    <div id="empty" class="empty" style="display:none">
+      Tiada tempahan dijumpai.
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">QUINARA · PENGURUSAN TEMPAHAN</footer>
 
 <script>
-
 let bookings = [];
-
 let currentMonth = new Date().getMonth();
-
 let currentYear = new Date().getFullYear();
 
+const monthNames = [
+  "Januari","Februari","Mac","April","Mei","Jun",
+  "Julai","Ogos","September","Oktober","November","Disember"
+];
+
+// Escape teks pelanggan sebelum dimasukkan ke dalam HTML.
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, function(char) {
+    return {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char];
+  });
+}
 
 // ================================
 // LOAD BOOKINGS
 // ================================
 
-async function loadBookings(){
+async function loadBookings() {
+  const loading = document.getElementById("loading");
+  loading.style.display = "block";
+  loading.textContent = "Sedang mengambil data tempahan...";
+  document.getElementById("bookingTable").style.display = "none";
+  document.getElementById("empty").style.display = "none";
 
-document.getElementById("loading")
-.style.display="block";
+  try {
+    const response = await fetch("/api/bookings");
+    const result = await response.json();
 
-document.getElementById("bookingTable")
-.style.display="none";
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "Gagal mendapatkan data");
+    }
 
-document.getElementById("empty")
-.style.display="none";
-
-try{
-
-const response =
-await fetch("/api/bookings");
-
-const result =
-await response.json();
-
-if(!result.success){
-
-throw new Error(
-"Gagal mendapatkan data"
-);
-
+    bookings = result.bookings || [];
+    updateSummary();
+    displayBookings();
+    renderCalendar();
+  } catch (error) {
+    console.error(error);
+    loading.textContent = "Gagal mengambil data tempahan. Sila tekan REFRESH.";
+    loading.style.display = "block";
+  }
 }
-
-bookings =
-result.bookings || [];
-
-updateSummary();
-
-displayBookings();
-
-renderCalendar();
-
-}catch(error){
-
-console.error(error);
-
-document.getElementById("loading")
-.textContent =
-"Gagal mengambil data tempahan.";
-
-}
-
-}
-
 
 // ================================
 // SUMMARY
 // ================================
 
-function updateSummary(){
+function updateSummary() {
+  document.getElementById("total").textContent = bookings.length;
 
-const total =
-bookings.length;
+  document.getElementById("pending").textContent =
+    bookings.filter(b => b.status === "Pending").length;
 
-const pending =
-bookings.filter(
-b => b.status === "Pending"
-).length;
-
-const confirmed =
-bookings.filter(
-b => b.status === "Confirmed"
-).length;
-
-document.getElementById("total")
-.textContent = total;
-
-document.getElementById("pending")
-.textContent = pending;
-
-document.getElementById("confirmed")
-.textContent = confirmed;
-
+  document.getElementById("confirmed").textContent =
+    bookings.filter(b => b.status === "Confirmed").length;
 }
-
 
 // ================================
 // DISPLAY BOOKINGS
 // ================================
 
-function displayBookings(){
+function displayBookings() {
+  const search = document.getElementById("search").value.trim().toLowerCase();
 
-const search =
-document.getElementById("search")
-.value
-.toLowerCase();
+  const filtered = bookings.filter(b => {
+    return [
+      b.id,
+      b.customerName,
+      b.phone,
+      b.hall,
+      b.eventType,
+      b.eventDate
+    ].some(value => String(value || "").toLowerCase().includes(search));
+  });
 
-const filtered =
-bookings.filter(b => {
+  const body = document.getElementById("bookingBody");
+  body.innerHTML = "";
 
-return (
+  document.getElementById("loading").style.display = "none";
 
-(b.id || "")
-.toLowerCase()
-.includes(search)
+  if (filtered.length === 0) {
+    document.getElementById("bookingTable").style.display = "none";
+    document.getElementById("empty").style.display = "block";
+    return;
+  }
 
-||
+  document.getElementById("bookingTable").style.display = "table";
+  document.getElementById("empty").style.display = "none";
 
-(b.customerName || "")
-.toLowerCase()
-.includes(search)
+  filtered.sort((a, b) => {
+    return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+  });
 
-||
+  filtered.forEach(booking => {
+    const row = document.createElement("tr");
 
-(b.phone || "")
-.toLowerCase()
-.includes(search)
+    let statusClass = "pending";
+    if (booking.status === "Confirmed") statusClass = "confirmed";
+    if (booking.status === "Cancelled") statusClass = "cancelled";
 
-||
+    const canUpdate =
+      booking.status !== "Confirmed" &&
+      booking.status !== "Cancelled";
 
-(b.hall || "")
-.toLowerCase()
-.includes(search)
+    row.innerHTML = `
+      <td><strong class="booking-id">${escapeHTML(booking.id)}</strong></td>
+      <td>
+        <strong>${escapeHTML(booking.customerName)}</strong>
+        <br>
+        <span class="customer-email">${escapeHTML(booking.email || "")}</span>
+      </td>
+      <td>${escapeHTML(booking.phone)}</td>
+      <td>${escapeHTML(booking.hall)}</td>
+      <td>${escapeHTML(booking.eventDate)}</td>
+      <td>${booking.eventTime ? escapeHTML(booking.eventTime) : "—"}</td>
+      <td>${escapeHTML(booking.eventType)}</td>
+      <td>${booking.pax !== "" && booking.pax != null ? escapeHTML(booking.pax) : "—"}</td>
+      <td><span class="status ${statusClass}">${escapeHTML(booking.status || "Pending")}</span></td>
+      <td>
+        <div class="action">
+          ${
+            canUpdate
+            ? `
+              <button class="confirm" data-id="${escapeHTML(booking.id)}" data-action="confirm">CONFIRM</button>
+              <button class="cancel" data-id="${escapeHTML(booking.id)}" data-action="cancel">CANCEL</button>
+            `
+            : "—"
+          }
+        </div>
+      </td>
+    `;
 
-);
+    body.appendChild(row);
+  });
+}
 
+// Event delegation untuk butang tindakan.
+document.getElementById("bookingBody").addEventListener("click", function(event) {
+  const button = event.target.closest("button[data-action]");
+  if (!button) return;
+
+  updateStatus(button.dataset.id, button.dataset.action);
 });
 
-const body =
-document.getElementById("bookingBody");
-
-body.innerHTML = "";
-
-document.getElementById("loading")
-.style.display = "none";
-
-if(filtered.length === 0){
-
-document.getElementById("bookingTable")
-.style.display = "none";
-
-document.getElementById("empty")
-.style.display = "block";
-
-return;
-
-}
-
-document.getElementById("bookingTable")
-.style.display = "table";
-
-document.getElementById("empty")
-.style.display = "none";
-
-
-filtered
-.sort((a,b) =>
-new Date(b.createdAt) -
-new Date(a.createdAt)
-)
-.forEach(booking => {
-
-const row =
-document.createElement("tr");
-
-let statusClass =
-"pending";
-
-if(booking.status === "Confirmed"){
-statusClass = "confirmed";
-}
-
-if(booking.status === "Cancelled"){
-statusClass = "cancelled";
-}
-
-row.innerHTML = `
-
-<td>
-<strong>${booking.id}</strong>
-</td>
-
-<td>
-${booking.customerName}
-<br>
-<small>${booking.email || ""}</small>
-</td>
-
-<td>
-${booking.phone}
-</td>
-
-<td>
-${booking.hall}
-</td>
-
-<td>
-${booking.eventDate}
-</td>
-
-<td>
-${booking.eventTime}
-</td>
-
-<td>
-${booking.eventType}
-</td>
-
-<td>
-${booking.pax || "-"}
-</td>
-
-<td>
-
-<span class="status ${statusClass}">
-${booking.status}
-</span>
-
-</td>
-
-<td>
-
-<div class="action">
-
-${
-booking.status !== "Confirmed"
-&&
-booking.status !== "Cancelled"
-
-?
-
-`
-
-<button
-class="confirm"
-onclick="updateStatus('${booking.id}','confirm')">
-
-CONFIRM
-
-</button>
-
-<button
-class="cancel"
-onclick="updateStatus('${booking.id}','cancel')">
-
-CANCEL
-
-</button>
-
-`
-
-:
-
-""
-
-}
-
-</div>
-
-</td>
-
-`;
-
-body.appendChild(row);
-
-});
-
-}
-
-
 // ================================
-// GET HALL COLOR
+// HALL COLOURS
 // ================================
 
-function getHallClass(hall){
+function getHallClass(hall) {
+  const name = (hall || "").toLowerCase().trim();
 
-const name =
-(hall || "")
-.toLowerCase()
-.trim();
+  if (name === "arafah hall") return "arafah";
+  if (name === "ar-rayyan") return "rayyan";
+  if (name === "glass hall") return "glass";
+  if (name === "as-safar") return "safar";
+  if (name === "al-marwah" || name === "al-marwar") return "marwah";
 
-if(name === "arafah hall"){
-return "arafah";
+  return "arafah";
 }
-
-if(name === "ar-rayyan"){
-return "rayyan";
-}
-
-if(name === "glass hall"){
-return "glass";
-}
-
-if(name === "as-safar"){
-return "safar";
-}
-
-if(name === "al-marwah"){
-return "marwah";
-}
-
-return "arafah";
-
-}
-
 
 // ================================
 // CALENDAR
 // ================================
 
-function renderCalendar(){
+function renderCalendar() {
+  const calendarDays = document.getElementById("calendarDays");
+  calendarDays.innerHTML = "";
 
-const calendarDays =
-document.getElementById("calendarDays");
+  document.getElementById("calendarTitle").textContent =
+    monthNames[currentMonth] + " " + currentYear;
 
-calendarDays.innerHTML = "";
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const daysInPreviousMonth = new Date(currentYear, currentMonth, 0).getDate();
 
-const monthNames = [
+  for (let i = firstDay - 1; i >= 0; i--) {
+    const div = document.createElement("div");
+    div.className = "day other-month";
+    div.innerHTML = `<div class="day-number">${daysInPreviousMonth - i}</div>`;
+    calendarDays.appendChild(div);
+  }
 
-"Januari",
-"Februari",
-"Mac",
-"April",
-"Mei",
-"Jun",
-"Julai",
-"Ogos",
-"September",
-"Oktober",
-"November",
-"Disember"
+  const today = new Date();
 
-];
+  for (let day = 1; day <= daysInMonth; day++) {
+    const div = document.createElement("div");
+    div.className = "day";
 
-document.getElementById("calendarTitle")
-.textContent =
-monthNames[currentMonth] +
-" " +
-currentYear;
+    const dateString =
+      currentYear + "-" +
+      String(currentMonth + 1).padStart(2, "0") + "-" +
+      String(day).padStart(2, "0");
 
+    if (
+      day === today.getDate() &&
+      currentMonth === today.getMonth() &&
+      currentYear === today.getFullYear()
+    ) {
+      div.classList.add("today");
+    }
 
-const firstDay =
-new Date(
-currentYear,
-currentMonth,
-1
-).getDay();
+    div.innerHTML = `<div class="day-number">${day}</div>`;
 
-const daysInMonth =
-new Date(
-currentYear,
-currentMonth + 1,
-0
-).getDate();
+    const dayBookings = bookings.filter(
+      booking => booking.eventDate === dateString
+    );
 
-const daysInPreviousMonth =
-new Date(
-currentYear,
-currentMonth,
-0
-).getDate();
+    dayBookings.forEach(booking => {
+      const bookingDiv = document.createElement("div");
 
+      bookingDiv.className = "booking " + getHallClass(booking.hall);
 
-// Previous month days
+      if (booking.status === "Cancelled") {
+        bookingDiv.classList.add("cancelled-booking");
+      }
 
-for(
-let i = firstDay - 1;
-i >= 0;
-i--
-){
+      bookingDiv.innerHTML =
+        "<strong>" + escapeHTML(booking.hall) + "</strong><br>" +
+        (booking.eventTime ? escapeHTML(booking.eventTime) + " · " : "") +
+        escapeHTML(booking.customerName) +
+        "<br><small>" + escapeHTML(booking.status || "Pending") + "</small>";
 
-const div =
-document.createElement("div");
+      div.appendChild(bookingDiv);
+    });
 
-div.className =
-"day other-month";
+    calendarDays.appendChild(div);
+  }
 
-div.innerHTML =
-`<div class="day-number">
-${daysInPreviousMonth - i}
-</div>`;
+  const totalCells = firstDay + daysInMonth;
+  const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
 
-calendarDays.appendChild(div);
-
+  for (let day = 1; day <= remaining; day++) {
+    const div = document.createElement("div");
+    div.className = "day other-month";
+    div.innerHTML = `<div class="day-number">${day}</div>`;
+    calendarDays.appendChild(div);
+  }
 }
-
-
-// Current month days
-
-for(
-let day = 1;
-day <= daysInMonth;
-day++
-){
-
-const div =
-document.createElement("div");
-
-div.className = "day";
-
-const dateString =
-currentYear +
-"-" +
-String(currentMonth + 1)
-.padStart(2,"0") +
-"-" +
-String(day)
-.padStart(2,"0");
-
-
-const today =
-new Date();
-
-if(
-day === today.getDate() &&
-currentMonth === today.getMonth() &&
-currentYear === today.getFullYear()
-){
-
-div.classList.add("today");
-
-}
-
-
-div.innerHTML =
-`<div class="day-number">${day}</div>`;
-
-
-const dayBookings =
-bookings.filter(
-booking =>
-booking.eventDate === dateString
-);
-
-
-dayBookings.forEach(
-booking => {
-
-const bookingDiv =
-document.createElement("div");
-
-
-// WARNA IKUT DEWAN
-
-const hallClass =
-getHallClass(booking.hall);
-
-bookingDiv.className =
-"booking " +
-hallClass;
-
-
-// CANCELLED OVERRIDE WARNA
-
-if(
-booking.status === "Cancelled"
-){
-
-bookingDiv.classList.add(
-"cancelled-booking"
-);
-
-}
-
-bookingDiv.innerHTML =
-
-"<strong>" +
-booking.hall +
-"</strong><br>" +
-
-booking.eventTime +
-" - " +
-
-booking.customerName;
-
-div.appendChild(
-bookingDiv
-);
-
-});
-
-
-calendarDays.appendChild(div);
-
-}
-
-
-// Next month filler
-
-const totalCells =
-firstDay +
-daysInMonth;
-
-const remaining =
-totalCells % 7 === 0
-? 0
-: 7 - (totalCells % 7);
-
-
-for(
-let day = 1;
-day <= remaining;
-day++
-){
-
-const div =
-document.createElement("div");
-
-div.className =
-"day other-month";
-
-div.innerHTML =
-`<div class="day-number">
-${day}
-</div>`;
-
-calendarDays.appendChild(div);
-
-}
-
-}
-
 
 // ================================
 // MONTH NAVIGATION
 // ================================
 
-function previousMonth(){
-
-currentMonth--;
-
-if(currentMonth < 0){
-
-currentMonth = 11;
-
-currentYear--;
-
+function previousMonth() {
+  currentMonth--;
+  if (currentMonth < 0) {
+    currentMonth = 11;
+    currentYear--;
+  }
+  renderCalendar();
 }
 
-renderCalendar();
-
+function nextMonth() {
+  currentMonth++;
+  if (currentMonth > 11) {
+    currentMonth = 0;
+    currentYear++;
+  }
+  renderCalendar();
 }
 
-
-function nextMonth(){
-
-currentMonth++;
-
-if(currentMonth > 11){
-
-currentMonth = 0;
-
-currentYear++;
-
+function goToday() {
+  const today = new Date();
+  currentMonth = today.getMonth();
+  currentYear = today.getFullYear();
+  renderCalendar();
 }
-
-renderCalendar();
-
-}
-
-
-function goToday(){
-
-const today =
-new Date();
-
-currentMonth =
-today.getMonth();
-
-currentYear =
-today.getFullYear();
-
-renderCalendar();
-
-}
-
 
 // ================================
 // UPDATE STATUS
 // ================================
 
-async function updateStatus(id, action){
+async function updateStatus(id, action) {
+  const isConfirm = action === "confirm";
 
-if(action === "confirm"){
+  const approved = window.confirm(
+    isConfirm
+      ? "Confirm tempahan ini?"
+      : "Anda pasti mahu batalkan tempahan ini?"
+  );
 
-const confirmAction =
-confirm(
-"Confirm tempahan ini?"
-);
+  if (!approved) return;
 
-if(!confirmAction)return;
+  try {
+    const response = await fetch(
+      "/api/bookings/" + encodeURIComponent(id) + "/" + action,
+      { method: "PUT" }
+    );
 
-try{
+    const result = await response.json();
 
-const response =
-await fetch(
-"/api/bookings/" +
-id +
-"/confirm",
-{
-method:"PUT"
+    if (!response.ok || !result.success) {
+      alert(result.message || "Status tempahan gagal dikemas kini.");
+      return;
+    }
+
+    await loadBookings();
+    alert(result.message || "Status tempahan berjaya dikemas kini.");
+  } catch (error) {
+    console.error(error);
+    alert("Server tidak dapat dihubungi. Sila cuba lagi.");
+  }
 }
-);
-
-const result =
-await response.json();
-
-if(!result.success){
-
-alert(result.message);
-
-return;
-
-}
-
-loadBookings();
-
-}catch(error){
-
-alert(
-"Gagal confirm tempahan."
-);
-
-}
-
-}
-
-
-if(action === "cancel"){
-
-const cancelAction =
-confirm(
-"Anda pasti mahu batalkan tempahan ini?"
-);
-
-if(!cancelAction)return;
-
-try{
-
-const response =
-await fetch(
-"/api/bookings/" +
-id +
-"/cancel",
-{
-method:"PUT"
-}
-);
-
-const result =
-await response.json();
-
-if(!result.success){
-
-alert(result.message);
-
-return;
-
-}
-
-loadBookings();
-
-}catch(error){
-
-alert(
-"Gagal batalkan tempahan."
-);
-
-}
-
-}
-
-}
-
 
 // ================================
 // LOAD AUTOMATICALLY
 // ================================
 
 loadBookings();
-
 </script>
 
 </body>
