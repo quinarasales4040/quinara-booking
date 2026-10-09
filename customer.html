@@ -3,362 +3,556 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quinara - Tempahan Dewan</title>
+<title>Quinara - Pakej & Tempahan</title>
 
 <style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  color:#3d433b;
-  min-height:100vh;
-  background:#eee9dc url("quinara-bg-v2.jpg") center/cover fixed no-repeat;
+* {
+  box-sizing: border-box;
 }
 
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:rgba(248,244,234,.38);
-  z-index:-1;
+html {
+  scroll-behavior: smooth;
 }
 
-.header{
-  text-align:center;
-  padding:38px 20px 75px;
-  color:#263127;
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #3d433b;
+  min-height: 100vh;
+  background: #eee9dc url("quinara-bg-v2.jpg") center/cover fixed no-repeat;
 }
 
-.logo{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:43px;
-  letter-spacing:7px;
-  margin:0;
+body:before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(248,244,234,.38);
+  z-index: -1;
 }
 
-.logo:before{
-  content:"✦";
-  display:block;
-  font-size:17px;
-  margin-bottom:3px;
-  color:#70775c;
+.header {
+  text-align: center;
+  padding: 38px 20px 75px;
+  color: #263127;
 }
 
-.logo-line{
-  width:65px;
-  height:1px;
-  background:#9b956f;
-  margin:10px auto;
+.logo {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 43px;
+  letter-spacing: 7px;
+  margin: 0;
 }
 
-.header p{
-  margin:0;
-  font-size:11px;
-  letter-spacing:3px;
-  color:#77796e;
-  text-transform:uppercase;
+.logo:before {
+  content: "✦";
+  display: block;
+  font-size: 17px;
+  margin-bottom: 3px;
+  color: #70775c;
 }
 
-.container{
-  width:min(850px,calc(100% - 28px));
-  margin:-35px auto 45px;
+.logo-line {
+  width: 65px;
+  height: 1px;
+  background: #9b956f;
+  margin: 10px auto;
 }
 
-.card{
-  position:relative;
-  overflow:hidden;
-  padding:36px 38px 40px;
-  border-radius:18px;
-  background:rgba(255,253,248,.91);
-  border:1px solid rgba(255,255,255,.95);
-  box-shadow:0 25px 60px rgba(69,65,49,.20);
-  backdrop-filter:blur(8px);
+.header p {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #77796e;
+  text-transform: uppercase;
 }
 
-.card:before{
-  content:"❀";
-  position:absolute;
-  left:-5px;
-  top:-18px;
-  font-size:105px;
-  line-height:1;
-  color:#b8b59a;
-  opacity:.45;
-  transform:rotate(-15deg);
+.container {
+  width: min(1000px, calc(100% - 28px));
+  margin: -35px auto 45px;
 }
 
-.card:after{
-  content:"❀";
-  position:absolute;
-  right:-8px;
-  bottom:-28px;
-  font-size:115px;
-  line-height:1;
-  color:#b8b59a;
-  opacity:.45;
-  transform:rotate(12deg);
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: 30px;
+  border-radius: 18px;
+  background: rgba(255,253,248,.93);
+  border: 1px solid rgba(255,255,255,.95);
+  box-shadow: 0 25px 60px rgba(69,65,49,.20);
+  backdrop-filter: blur(8px);
 }
 
-.form-header{
-  text-align:center;
-  margin-bottom:28px;
-  position:relative;
-  z-index:2;
+.card:before {
+  content: "❀";
+  position: absolute;
+  left: -5px;
+  top: -18px;
+  font-size: 105px;
+  line-height: 1;
+  color: #b8b59a;
+  opacity: .25;
+  transform: rotate(-15deg);
+  pointer-events: none;
 }
 
-.form-header h2{
-  margin:0;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:30px;
-  font-weight:500;
-  color:#263127;
+.card:after {
+  content: "❀";
+  position: absolute;
+  right: -8px;
+  bottom: -28px;
+  font-size: 115px;
+  line-height: 1;
+  color: #b8b59a;
+  opacity: .25;
+  transform: rotate(12deg);
+  pointer-events: none;
 }
 
-.form-header h2:before{
-  content:"✤";
-  display:block;
-  font-family:Arial,sans-serif;
-  font-size:19px;
-  color:#747b5e;
-  margin-bottom:7px;
+/* TAB PAKEJ DAN TEMPAHAN */
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 auto 30px;
+  position: relative;
+  z-index: 2;
 }
 
-.form-header p{
-  margin:8px 0 0;
-  color:#85877d;
-  font-size:13px;
+.tab-button {
+  width: auto;
+  min-width: 150px;
+  margin: 0;
+  padding: 13px 25px;
+  border: 1px solid #858b6d;
+  border-radius: 30px;
+  background: transparent;
+  color: #596148;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: none;
+  transition: .2s;
 }
 
-.section-title{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin:28px 0 10px;
-  color:#4e5749;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-  position:relative;
-  z-index:2;
+.tab-button:before {
+  content: none;
 }
 
-.section-title:first-of-type{
-  margin-top:0;
+.tab-button:hover {
+  transform: translateY(-1px);
+  box-shadow: none;
 }
 
-.section-title:after{
-  content:"";
-  height:1px;
-  background:#dddace;
-  flex:1;
+.tab-button.active {
+  background: linear-gradient(135deg,#6e7557,#858b68);
+  color: white;
+  box-shadow: 0 6px 15px rgba(82,89,62,.18);
 }
 
-.section-number{
-  width:29px;
-  height:29px;
-  flex:none;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#72795c;
-  color:white;
-  font-size:12px;
+.tab-panel {
+  display: none;
+  position: relative;
+  z-index: 1;
 }
 
-label{
-  display:block;
-  margin:15px 0 6px;
-  color:#555b53;
-  font-size:13px;
-  font-weight:600;
-  position:relative;
-  z-index:2;
+.tab-panel.active {
+  display: block;
 }
 
-.required{
-  color:#bd5d51;
+/* TAJUK */
+
+.form-header {
+  text-align: center;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 2;
 }
 
-input,select,textarea{
-  width:100%;
-  border:1px solid #dddcd4;
-  border-radius:9px;
-  padding:12px 13px;
-  background:rgba(255,255,255,.82);
-  color:#41483f;
-  font:14px Arial,Helvetica,sans-serif;
-  outline:none;
-  transition:.2s;
-  position:relative;
-  z-index:2;
+.form-header h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  font-weight: 500;
+  color: #263127;
 }
 
-input:focus,select:focus,textarea:focus{
-  border-color:#858b6d;
-  box-shadow:0 0 0 3px rgba(120,128,94,.10);
-  background:#fff;
+.form-header h2:before {
+  content: "✤";
+  display: block;
+  font-family: Arial, sans-serif;
+  font-size: 19px;
+  color: #747b5e;
+  margin-bottom: 7px;
 }
 
-input::placeholder,textarea::placeholder{
-  color:#b0b1aa;
+.form-header p {
+  margin: 8px 0 0;
+  color: #85877d;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
-select{
-  cursor:pointer;
+/* GALERI PAKEJ */
+
+.package-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  position: relative;
+  z-index: 2;
 }
 
-textarea{
-  min-height:82px;
-  resize:vertical;
-  line-height:1.5;
+.package-item {
+  overflow: hidden;
+  border: 1px solid #e3e0d5;
+  border-radius: 13px;
+  background: rgba(255,255,255,.88);
+  box-shadow: 0 6px 18px rgba(69,65,49,.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform .2s, box-shadow .2s;
 }
 
-.two-column{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
+.package-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px rgba(69,65,49,.14);
 }
 
-.info-box{
-  margin-top:18px;
-  padding:10px 13px;
-  border:1px solid #dedecf;
-  border-radius:8px;
-  background:rgba(239,240,229,.75);
-  color:#6d7168;
-  font-size:12px;
-  position:relative;
-  z-index:2;
+.package-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #eee9dc;
 }
 
-button{
-  display:block;
-  width:290px;
-  max-width:100%;
-  margin:20px auto 0;
-  padding:14px 20px;
-  border:0;
-  border-radius:30px;
-  background:linear-gradient(135deg,#6e7557,#858b68);
-  color:#fff;
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:1px;
-  cursor:pointer;
-  box-shadow:0 8px 20px rgba(82,89,62,.22);
-  transition:.2s;
-  position:relative;
-  z-index:3;
+.package-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 15px;
+  text-align: center;
 }
 
-button:before{
-  content:"➤";
-  margin-right:9px;
+.package-content h3 {
+  margin: 0 0 12px;
+  color: #394333;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
-button:hover{
-  transform:translateY(-2px);
-  box-shadow:0 11px 24px rgba(82,89,62,.28);
+.package-button {
+  width: 100%;
+  margin: auto 0 0;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 25px;
+  background: #72795c;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  cursor: pointer;
+  box-shadow: none;
 }
 
-button:disabled{
-  opacity:.65;
-  cursor:not-allowed;
-  transform:none;
+.package-button:before {
+  content: none;
 }
 
-.success{
-  display:none;
-  margin-top:20px;
-  padding:20px;
-  border-radius:13px;
-  background:#f0faf4;
-  border:1px solid #ccebd7;
-  color:#27633c;
-  text-align:center;
-  line-height:1.7;
-  font-size:14px;
-  position:relative;
-  z-index:4;
+.package-button:hover {
+  background: #596148;
+  transform: translateY(-1px);
+  box-shadow: none;
 }
 
-.success-icon{
-  width:46px;
-  height:46px;
-  margin:0 auto 8px;
-  border-radius:50%;
-  background:#d9f3e2;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
+/* BORANG TEMPAHAN */
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 28px 0 10px;
+  color: #4e5749;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
 }
 
-.success-title{
-  font-size:18px;
-  font-weight:700;
-  color:#176b35;
+.section-title:first-of-type {
+  margin-top: 0;
 }
 
-.booking-id{
-  display:inline-block;
-  margin:7px 0;
-  padding:5px 11px;
-  background:#fff;
-  border:1px dashed #78b88d;
-  border-radius:7px;
-  font-weight:700;
-  font-size:17px;
-  color:#176b35;
+.section-title:after {
+  content: "";
+  height: 1px;
+  background: #dddace;
+  flex: 1;
 }
 
-.footer{
-  text-align:center;
-  padding:0 20px 30px;
-  color:#858a82;
-  font-size:11px;
-  letter-spacing:.4px;
+.section-number {
+  width: 29px;
+  height: 29px;
+  flex: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #72795c;
+  color: white;
+  font-size: 12px;
 }
 
-@media(max-width:650px){
-  body{
-    background-attachment:scroll;
+label {
+  display: block;
+  margin: 15px 0 6px;
+  color: #555b53;
+  font-size: 13px;
+  font-weight: 600;
+  position: relative;
+  z-index: 2;
+}
+
+.required {
+  color: #bd5d51;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #dddcd4;
+  border-radius: 9px;
+  padding: 12px 13px;
+  background: rgba(255,255,255,.82);
+  color: #41483f;
+  font: 14px Arial, Helvetica, sans-serif;
+  outline: none;
+  transition: .2s;
+  position: relative;
+  z-index: 2;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #858b6d;
+  box-shadow: 0 0 0 3px rgba(120,128,94,.10);
+  background: #fff;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #b0b1aa;
+}
+
+select {
+  cursor: pointer;
+}
+
+textarea {
+  min-height: 82px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.info-box {
+  margin-top: 18px;
+  padding: 10px 13px;
+  border: 1px solid #dedecf;
+  border-radius: 8px;
+  background: rgba(239,240,229,.75);
+  color: #6d7168;
+  font-size: 12px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 2;
+}
+
+.submit-button {
+  display: block;
+  width: 290px;
+  max-width: 100%;
+  margin: 20px auto 0;
+  padding: 14px 20px;
+  border: 0;
+  border-radius: 30px;
+  background: linear-gradient(135deg,#6e7557,#858b68);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(82,89,62,.22);
+  transition: .2s;
+  position: relative;
+  z-index: 3;
+}
+
+.submit-button:before {
+  content: "➤";
+  margin-right: 9px;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 11px 24px rgba(82,89,62,.28);
+}
+
+.submit-button:disabled {
+  opacity: .65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.success {
+  display: none;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 13px;
+  background: #f0faf4;
+  border: 1px solid #ccebd7;
+  color: #27633c;
+  text-align: center;
+  line-height: 1.7;
+  font-size: 14px;
+  position: relative;
+  z-index: 4;
+}
+
+.success-icon {
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  background: #d9f3e2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.success-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #176b35;
+}
+
+.booking-id {
+  display: inline-block;
+  margin: 7px 0;
+  padding: 5px 11px;
+  background: #fff;
+  border: 1px dashed #78b88d;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 17px;
+  color: #176b35;
+}
+
+.footer {
+  text-align: center;
+  padding: 0 20px 30px;
+  color: #858a82;
+  font-size: 11px;
+  letter-spacing: .4px;
+}
+
+/* PAPARAN TELEFON */
+
+@media(max-width: 750px) {
+  .package-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
   }
 
-  .header{
-    padding:28px 15px 62px;
+  .package-content {
+    padding: 12px;
   }
 
-  .logo{
-    font-size:34px;
-    letter-spacing:5px;
+  .package-content h3 {
+    font-size: 16px;
+  }
+}
+
+@media(max-width: 650px) {
+  body {
+    background-attachment: scroll;
   }
 
-  .container{
-    width:calc(100% - 20px);
-    margin-top:-27px;
+  .header {
+    padding: 28px 15px 62px;
   }
 
-  .card{
-    padding:28px 18px 30px;
-    border-radius:16px;
+  .logo {
+    font-size: 34px;
+    letter-spacing: 5px;
   }
 
-  .form-header h2{
-    font-size:25px;
+  .container {
+    width: calc(100% - 20px);
+    margin-top: -27px;
   }
 
-  .two-column{
-    grid-template-columns:1fr;
-    gap:0;
+  .card {
+    padding: 23px 15px 28px;
+    border-radius: 16px;
   }
 
-  .section-title{
-    letter-spacing:1px;
+  .form-header h2 {
+    font-size: 25px;
+  }
+
+  .two-column {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .section-title {
+    letter-spacing: 1px;
+  }
+
+  .tabs {
+    gap: 8px;
+    margin-bottom: 25px;
+  }
+
+  .tab-button {
+    min-width: 0;
+    flex: 1;
+    padding: 12px 8px;
+    font-size: 12px;
+  }
+
+  .package-grid {
+    gap: 10px;
+  }
+
+  .package-content {
+    padding: 10px;
+  }
+
+  .package-content h3 {
+    font-size: 14px;
+  }
+
+  .package-button {
+    padding: 10px 5px;
+    font-size: 10px;
   }
 }
 </style>
@@ -375,165 +569,302 @@ button:disabled{
 <div class="container">
   <div class="card">
 
-    <div class="form-header">
-      <h2>Tempahan Dewan</h2>
-      <p>
-        Sila lengkapkan maklumat di bawah untuk membuat permohonan tempahan.
-      </p>
-    </div>
-
-    <form id="bookingForm">
-
-      <!-- MAKLUMAT CUSTOMER -->
-
-      <div class="section-title">
-        <div class="section-number">1</div>
-        Maklumat Customer
-      </div>
-
-      <div class="two-column">
-        <div>
-          <label>
-            Nama Customer
-            <span class="required">*</span>
-          </label>
-          <input
-            id="customerName"
-            required
-            placeholder="Contoh: Nur Aisyah"
-            autocomplete="name"
-          >
-        </div>
-
-        <div>
-          <label>
-            No. Telefon
-            <span class="required">*</span>
-          </label>
-          <input
-            id="phone"
-            type="tel"
-            required
-            placeholder="Contoh: 0123456789"
-            autocomplete="tel"
-          >
-        </div>
-      </div>
-
-      <label>Email</label>
-      <input
-        id="email"
-        type="email"
-        placeholder="Contoh: nama@email.com"
-        autocomplete="email"
-      >
-
-      <!-- MAKLUMAT MAJLIS -->
-
-      <div class="section-title">
-        <div class="section-number">2</div>
-        Maklumat Majlis
-      </div>
-
-      <label>
-        Jenis Majlis
-        <span class="required">*</span>
-      </label>
-
-      <select id="eventType" required>
-        <option value="">-- Pilih Jenis Majlis --</option>
-        <option>Wedding</option>
-        <option>Nikah</option>
-        <option>Dinner</option>
-        <option>Corporate Event</option>
-        <option>Seminar</option>
-        <option>Meeting</option>
-        <option>Kem / Program</option>
-        <option>Birthday</option>
-        <option>Other</option>
-      </select>
-
-      <!-- TARIKH MAJLIS SAHAJA -->
-
-      <label>
-        Tarikh Majlis
-        <span class="required">*</span>
-      </label>
-
-      <input
-        id="eventDate"
-        type="date"
-        required
-      >
-
-      <!-- PILIH DEWAN -->
-
-      <label>
-        Pilih Dewan
-        <span class="required">*</span>
-      </label>
-
-      <select id="hall" required>
-        <option value="">-- Pilih Dewan --</option>
-        <option>Arafah Hall</option>
-        <option>Ar-Rayyan</option>
-        <option>Glass Hall</option>
-        <option>As-Safar</option>
-        <option>Al-Marwah</option>
-      </select>
-
-      <!-- JUMLAH PAX -->
-
-      <label>Jumlah Pax</label>
-
-      <input
-        id="pax"
-        type="number"
-        min="1"
-        placeholder="Contoh: 500"
-      >
-
-      <!-- PERMINTAAN TAMBAHAN -->
-
-      <div class="section-title">
-        <div class="section-number">3</div>
-        Permintaan Tambahan
-      </div>
-
-      <label>Catatan / Permintaan</label>
-
-      <textarea
-        id="notes"
-        placeholder="Contoh: perlukan meja VIP, setup pelamin, atau permintaan lain..."
-      ></textarea>
-
-      <div class="info-box">
-        ℹ️ Tempahan anda akan diterima oleh pihak Quinara untuk semakan dan pengesahan.
-      </div>
-
-      <button id="submitBtn" type="submit">
-        HANTAR TEMPAHAN
+    <!-- TAB NAVIGATION -->
+    <div class="tabs">
+      <button
+        type="button"
+        class="tab-button active"
+        id="packagesTab"
+        onclick="showTab('packages')">
+        PAKEJ
       </button>
 
-    </form>
+      <button
+        type="button"
+        class="tab-button"
+        id="bookingTab"
+        onclick="showTab('booking')">
+        TEMPAHAN
+      </button>
+    </div>
 
-    <!-- SUCCESS -->
+    <!-- TAB 1: PAKEJ -->
+    <section class="tab-panel active" id="packagesPanel">
 
-    <div class="success" id="successMessage">
-      <div class="success-icon">✓</div>
-
-      <div class="success-title">
-        Tempahan Berjaya!
+      <div class="form-header">
+        <h2>Pakej Quinara</h2>
+        <p>Pilih pakej yang sesuai untuk majlis anda.</p>
       </div>
 
-      ID Tempahan anda:<br>
+      <div class="package-grid">
 
-      <span class="booking-id" id="bookingId"></span>
+        <div class="package-item">
+          <img
+            class="package-image"
+            src="images/family-day.jpg"
+            alt="Family Day Package"
+            loading="lazy">
+          <div class="package-content">
+            <h3>Family Day Package</h3>
+            <button type="button" class="package-button"
+              onclick="bookPackage('Family Day')">
+              TEMPAH SEKARANG
+            </button>
+          </div>
+        </div>
 
-      <br>
+        <div class="package-item">
+          <img
+            class="package-image"
+            src="images/grand-talk.jpg"
+            alt="Grand Talk Package"
+            loading="lazy">
+          <div class="package-content">
+            <h3>Grand Talk Package</h3>
+            <button type="button" class="package-button"
+              onclick="bookPackage('Grand Talk')">
+              TEMPAH SEKARANG
+            </button>
+          </div>
+        </div>
 
-      Pihak Quinara akan menghubungi anda untuk pengesahan tempahan.
-    </div>
+        <div class="package-item">
+          <img
+            class="package-image"
+            src="images/meeting.jpg"
+            alt="Meeting Package"
+            loading="lazy">
+          <div class="package-content">
+            <h3>Meeting Package</h3>
+            <button type="button" class="package-button"
+              onclick="bookPackage('Meeting')">
+              TEMPAH SEKARANG
+            </button>
+          </div>
+        </div>
+
+        <div class="package-item">
+          <img
+            class="package-image"
+            src="images/school-camp-1.jpg"
+            alt="School Camp Package 1"
+            loading="lazy">
+          <div class="package-content">
+            <h3>School Camp Package</h3>
+            <button type="button" class="package-button"
+              onclick="bookPackage('Kem / Program')">
+              TEMPAH SEKARANG
+            </button>
+          </div>
+        </div>
+
+        <div class="package-item">
+          <img
+            class="package-image"
+            src="images/school-camp-2.jpg"
+            alt="School Camp Package 2"
+            loading="lazy">
+          <div class="package-content">
+            <h3>School Camp Package</h3>
+            <button type="button" class="package-button"
+              onclick="bookPackage('Kem / Program')">
+              TEMPAH SEKARANG
+            </button>
+          </div>
+        </div>
+
+        <div class="package-item">
+          <img
+            class="package-image"
+            src="images/school-camp-3.jpg"
+            alt="School Camp Package 3"
+            loading="lazy">
+          <div class="package-content">
+            <h3>School Camp Package</h3>
+            <button type="button" class="package-button"
+              onclick="bookPackage('Kem / Program')">
+              TEMPAH SEKARANG
+            </button>
+          </div>
+        </div>
+
+        <div class="package-item">
+          <img
+            class="package-image"
+            src="images/wedding.jpg"
+            alt="Wedding Package"
+            loading="lazy">
+          <div class="package-content">
+            <h3>Wedding Package</h3>
+            <button type="button" class="package-button"
+              onclick="bookPackage('Wedding')">
+              TEMPAH SEKARANG
+            </button>
+          </div>
+        </div>
+
+        <div class="package-item">
+          <img
+            class="package-image"
+            src="images/resident.jpg"
+            alt="Resident Package"
+            loading="lazy">
+          <div class="package-content">
+            <h3>Resident Package</h3>
+            <button type="button" class="package-button"
+              onclick="bookPackage('Other')">
+              TEMPAH SEKARANG
+            </button>
+          </div>
+        </div>
+
+        <div class="package-item">
+          <img
+            class="package-image"
+            src="images/seminar.jpg"
+            alt="Seminar Package"
+            loading="lazy">
+          <div class="package-content">
+            <h3>Seminar Package</h3>
+            <button type="button" class="package-button"
+              onclick="bookPackage('Seminar')">
+              TEMPAH SEKARANG
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 2: TEMPAHAN -->
+    <section class="tab-panel" id="bookingPanel">
+
+      <div class="form-header">
+        <h2>Tempahan Dewan</h2>
+        <p>Sila lengkapkan maklumat di bawah untuk membuat permohonan tempahan.</p>
+      </div>
+
+      <form id="bookingForm">
+
+        <div class="section-title">
+          <div class="section-number">1</div>
+          Maklumat Customer
+        </div>
+
+        <div class="two-column">
+          <div>
+            <label for="customerName">
+              Nama Customer <span class="required">*</span>
+            </label>
+            <input
+              id="customerName"
+              name="customerName"
+              required
+              placeholder="Contoh: Nur Aisyah"
+              autocomplete="name">
+          </div>
+
+          <div>
+            <label for="phone">
+              No. Telefon <span class="required">*</span>
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              required
+              placeholder="Contoh: 0123456789"
+              autocomplete="tel">
+          </div>
+        </div>
+
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="Contoh: nama@email.com"
+          autocomplete="email">
+
+        <div class="section-title">
+          <div class="section-number">2</div>
+          Maklumat Majlis
+        </div>
+
+        <label for="eventType">
+          Jenis Majlis <span class="required">*</span>
+        </label>
+
+        <select id="eventType" name="eventType" required>
+          <option value="">-- Pilih Jenis Majlis --</option>
+          <option>Wedding</option>
+          <option>Nikah</option>
+          <option>Dinner</option>
+          <option>Corporate Event</option>
+          <option>Seminar</option>
+          <option>Meeting</option>
+          <option>Kem / Program</option>
+          <option>Birthday</option>
+          <option>Other</option>
+        </select>
+
+        <label for="eventDate">
+          Tarikh Majlis <span class="required">*</span>
+        </label>
+        <input id="eventDate" name="eventDate" type="date" required>
+
+        <label for="hall">
+          Pilih Dewan <span class="required">*</span>
+        </label>
+
+        <select id="hall" name="hall" required>
+          <option value="">-- Pilih Dewan --</option>
+          <option>Arafah Hall</option>
+          <option>Ar-Rayyan</option>
+          <option>Glass Hall</option>
+          <option>As-Safar</option>
+          <option>Al-Marwah</option>
+        </select>
+
+        <label for="pax">Jumlah Pax</label>
+        <input
+          id="pax"
+          name="pax"
+          type="number"
+          min="1"
+          placeholder="Contoh: 500">
+
+        <div class="section-title">
+          <div class="section-number">3</div>
+          Permintaan Tambahan
+        </div>
+
+        <label for="notes">Catatan / Permintaan</label>
+        <textarea
+          id="notes"
+          name="notes"
+          placeholder="Contoh: perlukan meja VIP, setup pelamin, atau permintaan lain..."></textarea>
+
+        <div class="info-box">
+          ℹ️ Tempahan anda akan diterima oleh pihak Quinara untuk semakan dan pengesahan.
+        </div>
+
+        <button class="submit-button" id="submitBtn" type="submit">
+          HANTAR TEMPAHAN
+        </button>
+
+      </form>
+
+      <div class="success" id="successMessage">
+        <div class="success-icon">✓</div>
+        <div class="success-title">Tempahan Berjaya!</div>
+        ID Tempahan anda:<br>
+        <span class="booking-id" id="bookingId"></span>
+        <br>
+        Pihak Quinara akan menghubungi anda untuk pengesahan tempahan.
+      </div>
+
+    </section>
 
   </div>
 </div>
@@ -543,90 +874,115 @@ button:disabled{
 </div>
 
 <script>
-document
-  .getElementById("bookingForm")
-  .addEventListener("submit", async function(e){
+/* TUKAR TAB */
 
-    e.preventDefault();
+function showTab(tabName) {
+  const packagesPanel = document.getElementById("packagesPanel");
+  const bookingPanel = document.getElementById("bookingPanel");
+  const packagesTab = document.getElementById("packagesTab");
+  const bookingTab = document.getElementById("bookingTab");
 
-    const btn = document.getElementById("submitBtn");
+  if (tabName === "booking") {
+    packagesPanel.classList.remove("active");
+    bookingPanel.classList.add("active");
 
-    btn.disabled = true;
-    btn.textContent = "SEDANG HANTAR...";
+    packagesTab.classList.remove("active");
+    bookingTab.classList.add("active");
+  } else {
+    bookingPanel.classList.remove("active");
+    packagesPanel.classList.add("active");
 
-    const booking = {
-      customerName:
-        document.getElementById("customerName").value,
+    bookingTab.classList.remove("active");
+    packagesTab.classList.add("active");
+  }
 
-      phone:
-        document.getElementById("phone").value,
-
-      email:
-        document.getElementById("email").value,
-
-      hall:
-        document.getElementById("hall").value,
-
-      eventDate:
-        document.getElementById("eventDate").value,
-
-      eventType:
-        document.getElementById("eventType").value,
-
-      pax:
-        document.getElementById("pax").value,
-
-      notes:
-        document.getElementById("notes").value
-    };
-
-    try{
-      const response = await fetch("/api/bookings", {
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify(booking)
-      });
-
-      const result = await response.json();
-
-      if(!response.ok || !result.success){
-        alert(
-          result.message ||
-          "Tempahan tidak berjaya dihantar. Sila cuba lagi."
-        );
-
-        btn.disabled = false;
-        btn.textContent = "HANTAR TEMPAHAN";
-        return;
-      }
-
-      document.getElementById("bookingId").textContent =
-        result.booking.id;
-
-      document.getElementById("successMessage").style.display =
-        "block";
-
-      document.getElementById("bookingForm").reset();
-
-      btn.disabled = false;
-      btn.textContent = "HANTAR TEMPAHAN";
-
-      window.scrollTo({
-        top:document.body.scrollHeight,
-        behavior:"smooth"
-      });
-
-    }catch(error){
-      console.error(error);
-
-      alert("Server tidak dapat dihubungi. Sila cuba lagi.");
-
-      btn.disabled = false;
-      btn.textContent = "HANTAR TEMPAHAN";
-    }
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
   });
+}
+
+/* BUTANG TEMPAH PADA KAD PAKEJ */
+
+function bookPackage(eventType) {
+  showTab("booking");
+
+  const eventTypeSelect = document.getElementById("eventType");
+  eventTypeSelect.value = eventType;
+
+  document.getElementById("bookingPanel").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+/* HANTAR TEMPAHAN */
+
+document.getElementById("bookingForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const btn = document.getElementById("submitBtn");
+
+  btn.disabled = true;
+  btn.textContent = "SEDANG HANTAR...";
+
+  const booking = {
+    customerName: document.getElementById("customerName").value,
+    phone: document.getElementById("phone").value,
+    email: document.getElementById("email").value,
+    hall: document.getElementById("hall").value,
+    eventDate: document.getElementById("eventDate").value,
+    eventType: document.getElementById("eventType").value,
+    pax: document.getElementById("pax").value,
+    notes: document.getElementById("notes").value
+  };
+
+  try {
+    const response = await fetch("/api/bookings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(booking)
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      alert(
+        result.message ||
+        "Tempahan tidak berjaya dihantar. Sila cuba lagi."
+      );
+
+      btn.disabled = false;
+      btn.textContent = "HANTAR TEMPAHAN";
+      return;
+    }
+
+    document.getElementById("bookingId").textContent =
+      result.booking.id;
+
+    document.getElementById("successMessage").style.display = "block";
+
+    document.getElementById("bookingForm").reset();
+
+    btn.disabled = false;
+    btn.textContent = "HANTAR TEMPAHAN";
+
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth"
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    alert("Server tidak dapat dihubungi. Sila cuba lagi.");
+
+    btn.disabled = false;
+    btn.textContent = "HANTAR TEMPAHAN";
+  }
+});
 </script>
 
 </body>
